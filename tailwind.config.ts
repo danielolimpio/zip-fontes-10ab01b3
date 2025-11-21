@@ -104,6 +104,14 @@ export default {
         "card": "var(--shadow-card)",
         "card-hover": "var(--shadow-card-hover)",
       },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-bg": "var(--gradient-bg)",
+      },
+      boxShadow: {
+        "card": "var(--shadow-card)",
+        "card-hover": "var(--shadow-card-hover)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
