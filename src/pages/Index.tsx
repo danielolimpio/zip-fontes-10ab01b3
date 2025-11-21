@@ -37,15 +37,17 @@ const Index = () => {
       <Header />
       
       {/* Layout: Espaço AdSense | Menu Lateral | Conteúdo | Espaço AdSense */}
-      <div className="flex">
-        {/* Espaço vazio para AdSense vertical esquerdo */}
-        <div className="w-[140px] flex-shrink-0"></div>
+      <div className="flex min-h-screen">
+        {/* Espaço vazio para AdSense vertical esquerdo - cresce igualmente */}
+        <div className="flex-1"></div>
         
-        {/* Left Sidebar */}
-        <LeftSidebar />
-        
-        {/* Main Content Area */}
-        <main className="flex-1 pt-[60px] min-h-screen">
+        {/* Container centralizado: Menu + Conteúdo */}
+        <div className="flex">
+          {/* Left Sidebar */}
+          <LeftSidebar />
+          
+          {/* Main Content Area */}
+          <main className="w-[900px] pt-[60px] min-h-screen">
           <div className="px-8 py-8">
             <div className="max-w-4xl mx-auto">
               {/* Hero Section */}
@@ -131,9 +133,10 @@ const Index = () => {
             </div>
           </footer>
         </main>
+        </div>
         
-        {/* Espaço vazio para AdSense vertical direito */}
-        <div className="w-[140px] flex-shrink-0"></div>
+        {/* Espaço vazio para AdSense vertical direito - cresce igualmente */}
+        <div className="flex-1"></div>
       </div>
     </div>
   );
