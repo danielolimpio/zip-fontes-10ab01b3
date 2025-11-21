@@ -1,42 +1,45 @@
-import { Download } from "lucide-react";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
+import { Download, Heart } from "lucide-react";
 
 interface FontCardProps {
   name: string;
   category: string;
-  downloads: number;
+  author: string;
   previewText: string;
   fontFamily: string;
 }
 
-export const FontCard = ({ name, category, downloads, previewText, fontFamily }: FontCardProps) => {
+export const FontCard = ({ name, category, author, previewText, fontFamily }: FontCardProps) => {
   return (
-    <Card className="p-6 hover:shadow-card-hover transition-all duration-200 bg-card border-border">
-      <div className="space-y-4">
-        <div 
-          className="text-4xl text-foreground truncate"
-          style={{ fontFamily: fontFamily }}
-        >
-          {previewText}
+    <div className="bg-card border border-gray-200 rounded-lg p-5 hover:shadow-card-hover transition-all duration-200">
+      {/* Font Preview */}
+      <div 
+        className="text-[64px] text-foreground mb-4 leading-tight overflow-hidden"
+        style={{ fontFamily: fontFamily }}
+      >
+        {previewText}
+      </div>
+      
+      {/* Font Info */}
+      <div className="flex items-start justify-between">
+        <div>
+          <a href="#" className="text-sm font-bold text-primary hover:underline">
+            {name}
+          </a>
+          <p className="text-xs text-gray-600 mt-1">
+            por {author} em {category}
+          </p>
         </div>
         
-        <div className="flex items-center justify-between pt-4 border-t border-border">
-          <div>
-            <h3 className="font-semibold text-foreground">{name}</h3>
-            <p className="text-sm text-muted-foreground">{category}</p>
-          </div>
-          
-          <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            <Download className="w-4 h-4 mr-2" />
-            Baixar
-          </Button>
-        </div>
-        
-        <div className="text-xs text-muted-foreground">
-          {downloads.toLocaleString('pt-BR')} downloads
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
+          <button className="text-gray-400 hover:text-foreground transition-colors">
+            <Download className="w-5 h-5" />
+          </button>
+          <button className="text-gray-400 hover:text-primary transition-colors">
+            <Heart className="w-5 h-5" />
+          </button>
         </div>
       </div>
-    </Card>
+    </div>
   );
 };
