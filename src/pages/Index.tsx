@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { LeftSidebar } from "@/components/LeftSidebar";
-import { RightSidebar } from "@/components/RightSidebar";
 import { FontCard } from "@/components/FontCard";
 import { FilterBar } from "@/components/FilterBar";
 import { FontPagination } from "@/components/FontPagination";
@@ -37,114 +36,105 @@ const Index = () => {
       {/* Header */}
       <Header />
       
-      {/* Left Sidebar */}
-      <LeftSidebar />
-      
-      {/* Right Sidebar */}
-      <RightSidebar />
-      
-      {/* Main Content Area */}
-      <main className="ml-[250px] mr-[300px] pt-[60px] min-h-screen">
-        <div className="px-8 py-8">
-          {/* Left AdSense Space */}
-          <div className="fixed left-[250px] top-[80px] w-[140px] h-[600px] bg-muted/30 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center">
-            <span className="text-xs text-gray-400 text-center px-2">
-              Espaço para<br />AdSense<br />Vertical
-            </span>
+      {/* Layout: Espaço AdSense | Menu Lateral | Conteúdo | Espaço AdSense */}
+      <div className="flex">
+        {/* Espaço vazio para AdSense vertical esquerdo */}
+        <div className="w-[140px] flex-shrink-0"></div>
+        
+        {/* Left Sidebar */}
+        <LeftSidebar />
+        
+        {/* Main Content Area */}
+        <main className="flex-1 pt-[60px] min-h-screen">
+          <div className="px-8 py-8">
+            <div className="max-w-4xl mx-auto">
+              {/* Hero Section */}
+              <div className="mb-8">
+                <h1 className="text-[32px] font-bold text-primary mb-2">
+                  Explore a arte da tipografia.
+                </h1>
+                <p className="text-base text-gray-600 leading-relaxed text-justify">
+                  Descubra milhares de fontes gratuitas e de alta qualidade para seus projetos. 
+                  Todas as fontes são 100% livres de direitos autorais e podem ser usadas em 
+                  projetos pessoais e comerciais sem restrições.
+                </p>
+              </div>
+              
+              {/* Filter Bar */}
+              <FilterBar
+                viewMode={viewMode}
+                onViewModeChange={setViewMode}
+                searchText={previewText}
+                onSearchChange={setPreviewText}
+              />
+              
+              {/* Fonts Grid */}
+              <div className="space-y-6 mb-8">
+                {paginatedFonts.map((font) => (
+                  <FontCard
+                    key={font.id}
+                    name={font.name}
+                    category={font.category}
+                    author={font.author}
+                    previewText={previewText}
+                    fontFamily={font.fontFamily}
+                  />
+                ))}
+              </div>
+              
+              {/* Recently Added Section */}
+              <div className="my-12">
+                <h2 className="text-2xl font-bold text-primary mb-2">
+                  Fontes adicionadas recentemente.
+                </h2>
+                <p className="text-base text-gray-600 mb-6">
+                  Confira as últimas adições à nossa coleção de fontes gratuitas.
+                </p>
+              </div>
+              
+              {/* Pagination */}
+              <FontPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                itemsPerPage={itemsPerPage}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={(items) => {
+                  setItemsPerPage(items);
+                  setCurrentPage(1);
+                }}
+              />
+              
+              {/* All New Fonts Button */}
+              <div className="flex justify-center mt-8 mb-12">
+                <Button 
+                  className="bg-gradient-primary text-white font-bold text-base px-6 py-3 rounded-lg hover-scale shadow-sm"
+                >
+                  Todas as novas fontes
+                </Button>
+              </div>
+            </div>
           </div>
           
-          {/* Right AdSense Space */}
-          <div className="fixed right-[300px] top-[80px] w-[140px] h-[600px] bg-muted/30 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center">
-            <span className="text-xs text-gray-400 text-center px-2">
-              Espaço para<br />AdSense<br />Vertical
-            </span>
-          </div>
-          
-          {/* Content Container */}
-          <div className="max-w-4xl mx-auto">
-            {/* Hero Section */}
-            <div className="mb-8">
-              <h1 className="text-[32px] font-bold text-primary mb-2">
-                Explore a arte da tipografia.
-              </h1>
-              <p className="text-base text-gray-600 leading-relaxed text-justify">
-                Descubra milhares de fontes gratuitas e de alta qualidade para seus projetos. 
-                Todas as fontes são 100% livres de direitos autorais e podem ser usadas em 
-                projetos pessoais e comerciais sem restrições.
+          {/* Footer */}
+          <footer className="bg-gray-100 py-6">
+            <div className="max-w-4xl mx-auto px-8 text-center">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <a href="#" className="text-xs text-gray-600 hover:text-primary">Ajuda e suporte</a>
+                <span className="text-gray-400">|</span>
+                <a href="#" className="text-xs text-gray-600 hover:text-primary">Privacidade e cookies</a>
+                <span className="text-gray-400">|</span>
+                <a href="#" className="text-xs text-gray-600 hover:text-primary">Contate-nos</a>
+              </div>
+              <p className="text-xs text-gray-600">
+                © 2006-2025 Zip Fontes. Todos os direitos reservados.
               </p>
             </div>
-            
-            {/* Filter Bar */}
-            <FilterBar
-              viewMode={viewMode}
-              onViewModeChange={setViewMode}
-              searchText={previewText}
-              onSearchChange={setPreviewText}
-            />
-            
-            {/* Fonts Grid */}
-            <div className="space-y-6 mb-8">
-              {paginatedFonts.map((font) => (
-                <FontCard
-                  key={font.id}
-                  name={font.name}
-                  category={font.category}
-                  author={font.author}
-                  previewText={previewText}
-                  fontFamily={font.fontFamily}
-                />
-              ))}
-            </div>
-            
-            {/* Recently Added Section */}
-            <div className="my-12">
-              <h2 className="text-2xl font-bold text-primary mb-2">
-                Fontes adicionadas recentemente.
-              </h2>
-              <p className="text-base text-gray-600 mb-6">
-                Confira as últimas adições à nossa coleção de fontes gratuitas.
-              </p>
-            </div>
-            
-            {/* Pagination */}
-            <FontPagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              itemsPerPage={itemsPerPage}
-              onPageChange={setCurrentPage}
-              onItemsPerPageChange={(items) => {
-                setItemsPerPage(items);
-                setCurrentPage(1);
-              }}
-            />
-            
-            {/* All New Fonts Button */}
-            <div className="flex justify-center mt-8 mb-12">
-              <Button 
-                className="bg-gradient-primary text-white font-bold text-base px-6 py-3 rounded-lg hover-scale shadow-sm"
-              >
-                Todas as novas fontes
-              </Button>
-            </div>
-          </div>
-        </div>
-      </main>
-      
-      {/* Footer */}
-      <footer className="ml-[250px] mr-[300px] bg-gray-100 py-6">
-        <div className="max-w-4xl mx-auto px-8 text-center">
-          <div className="flex items-center justify-center gap-4 mb-2">
-            <a href="#" className="text-xs text-gray-600 hover:text-primary">Ajuda e suporte</a>
-            <span className="text-gray-400">|</span>
-            <a href="#" className="text-xs text-gray-600 hover:text-primary">Privacidade e cookies</a>
-            <span className="text-gray-400">|</span>
-            <a href="#" className="text-xs text-gray-600 hover:text-primary">Contate-nos</a>
-          </div>
-          <p className="text-xs text-gray-600">
-            © 2006-2025 Zip Fontes. Todos os direitos reservados.
-          </p>
-        </div>
-      </footer>
+          </footer>
+        </main>
+        
+        {/* Espaço vazio para AdSense vertical direito */}
+        <div className="w-[140px] flex-shrink-0"></div>
+      </div>
     </div>
   );
 };
