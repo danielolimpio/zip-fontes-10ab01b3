@@ -2,20 +2,27 @@
 
 type CharMap = { [key: string]: string };
 
+// Helper to convert string to array of Unicode characters (handles surrogate pairs)
+const toCharArray = (str: string): string[] => [...str];
+
 const createCharMap = (uppercase: string, lowercase: string, digits?: string): CharMap => {
   const map: CharMap = {};
   const upperAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const lowerAlphabet = 'abcdefghijklmnopqrstuvwxyz';
   const digitChars = '0123456789';
   
+  const upperChars = toCharArray(uppercase);
+  const lowerChars = toCharArray(lowercase);
+  const digitArray = digits ? toCharArray(digits) : [];
+  
   for (let i = 0; i < 26; i++) {
-    map[upperAlphabet[i]] = uppercase[i] || upperAlphabet[i];
-    map[lowerAlphabet[i]] = lowercase[i] || lowerAlphabet[i];
+    map[upperAlphabet[i]] = upperChars[i] || upperAlphabet[i];
+    map[lowerAlphabet[i]] = lowerChars[i] || lowerAlphabet[i];
   }
   
   if (digits) {
     for (let i = 0; i < 10; i++) {
-      map[digitChars[i]] = digits[i] || digitChars[i];
+      map[digitChars[i]] = digitArray[i] || digitChars[i];
     }
   }
   
