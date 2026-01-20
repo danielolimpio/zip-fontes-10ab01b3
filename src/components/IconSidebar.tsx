@@ -5,9 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 
 const menuItems = [
   { icon: Type, label: "Fonts", href: "/" },
-  { icon: Globe, label: "Noto", href: "/noto" },
   { icon: Grid3X3, label: "Icons", href: "/icons" },
-  { icon: BookOpen, label: "Knowledge", href: "/knowledge" },
   { icon: HelpCircle, label: "FAQ", href: "/faq" },
 ];
 
