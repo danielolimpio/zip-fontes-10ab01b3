@@ -1,17 +1,29 @@
 import { Type, Globe, Grid3X3, BookOpen, HelpCircle, Moon } from "lucide-react";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 const menuItems = [
-  { icon: Type, label: "Fonts", href: "#fonts", active: true },
-  { icon: Globe, label: "Noto", href: "#noto" },
-  { icon: Grid3X3, label: "Icons", href: "#icons" },
-  { icon: BookOpen, label: "Knowledge", href: "#knowledge" },
-  { icon: HelpCircle, label: "FAQ", href: "#faq" },
+  { icon: Type, label: "Fonts", href: "/" },
+  { icon: Globe, label: "Noto", href: "/noto" },
+  { icon: Grid3X3, label: "Icons", href: "/icons" },
+  { icon: BookOpen, label: "Knowledge", href: "/knowledge" },
+  { icon: HelpCircle, label: "FAQ", href: "/faq" },
 ];
 
-export const IconSidebar = () => {
+interface IconSidebarProps {
+  activeItem?: string;
+}
+
+export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
   const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const isActive = (item: typeof menuItems[0]) => {
+    if (activeItem) return item.label === activeItem;
+    return location.pathname === item.href;
+  };
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-16 bg-white border-r border-border flex flex-col items-center py-4 z-50">
@@ -25,17 +37,17 @@ export const IconSidebar = () => {
           {menuItems.map((item, index) => (
             <Tooltip key={index}>
               <TooltipTrigger asChild>
-                <a
-                  href={item.href}
+                <button
+                  onClick={() => navigate(item.href)}
                   className={`w-10 h-10 flex flex-col items-center justify-center rounded-lg transition-colors ${
-                    item.active 
-                      ? 'text-primary' 
+                    isActive(item) 
+                      ? 'text-primary bg-primary/10' 
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
                   <item.icon className="w-5 h-5" />
                   <span className="text-[10px] mt-0.5">{item.label}</span>
-                </a>
+                </button>
               </TooltipTrigger>
               <TooltipContent side="right">
                 {item.label}
