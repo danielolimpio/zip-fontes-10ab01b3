@@ -7,6 +7,7 @@ import { emojiCategories } from "@/lib/emojiData";
 import { emojiToTwemojiUrl } from "@/lib/emojiUtils";
 import { getEmojiName } from "@/lib/emojiNames";
 import { useToast } from "@/hooks/use-toast";
+import zipFontesLogo from "@/assets/zip-fontes-logo.png";
 
 const EmojisPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -87,14 +88,14 @@ const EmojisPage = () => {
         {/* Header */}
         <header className="h-[60px] bg-white border-b border-border flex items-center justify-between px-6 sticky top-0 z-40">
           <div className="flex items-center gap-4">
-            <span className="text-xl font-semibold text-foreground tracking-tight">Zip Fontes</span>
+            <img src={zipFontesLogo} alt="Zip Fontes" className="h-8" />
           </div>
           
           <div className="flex-1 max-w-md mx-8">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input 
-                placeholder="Search emojis" 
+                placeholder="Buscar emojis" 
                 className="pl-10 bg-muted/50 border-0"
                 value={headerSearchQuery}
                 onChange={(e) => setHeaderSearchQuery(e.target.value)}
@@ -204,16 +205,17 @@ const EmojisPage = () => {
         </main>
 
         {/* Footer */}
-        <footer className="bg-muted/30 border-t border-border py-6">
-          <div className="max-w-6xl mx-auto px-6 flex items-center justify-between text-sm text-muted-foreground">
-            <div className="flex items-center gap-6">
+        <footer className="bg-muted/30 border-t border-border py-8">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col items-center gap-4">
+            <img src={zipFontesLogo} alt="Zip Fontes" className="h-10" />
+            <div className="flex items-center gap-6 text-sm text-muted-foreground">
               <a href="#" className="hover:text-foreground transition-colors">Ajuda e suporte</a>
               <span className="text-border">|</span>
               <a href="#" className="hover:text-foreground transition-colors">Privacidade e cookies</a>
               <span className="text-border">|</span>
               <a href="#" className="hover:text-foreground transition-colors">Contate-nos</a>
             </div>
-            <span>© 2006-2025 Zip Fontes. Todos os direitos reservados.</span>
+            <span className="text-sm text-muted-foreground">© 2006-2025 Zip Fontes. Todos os direitos reservados.</span>
           </div>
         </footer>
       </div>
