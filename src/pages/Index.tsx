@@ -1,39 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { IconSidebar } from "@/components/IconSidebar";
 import { FilterPanel } from "@/components/FilterPanel";
 import { FontCard } from "@/components/FontCard";
 import { FontPagination } from "@/components/FontPagination";
 import { Button } from "@/components/ui/button";
-import { Grid, List, Info, X } from "lucide-react";
+import { Grid, List, Info, X, Loader2 } from "lucide-react";
 import zipFontesLogo from "@/assets/zip-fontes-logo.png";
-
-// Mock data - fontes livres de direitos autorais
-const mockFonts = [
-  { id: 1, name: "Google Sans Flex", category: "Variable (6 axes)", author: "Google", fontFamily: "system-ui" },
-  { id: 2, name: "Roboto", category: "Variable (3 axes)", author: "Christian Robertson, Paratype, Font Bureau", fontFamily: "sans-serif" },
-  { id: 3, name: "Rubik Storm", category: "1 style", author: "NaN, Luke Prowse", fontFamily: "fantasy" },
-  { id: 4, name: "Noto Sans Syriac", category: "Variable (1 axis)", author: "Google", fontFamily: "sans-serif" },
-  { id: 5, name: "Open Sans", category: "Variable (3 axes)", author: "Steve Matteson", fontFamily: "sans-serif" },
-  { id: 6, name: "Lato", category: "10 styles", author: "Łukasz Dziedzic", fontFamily: "sans-serif" },
-  { id: 7, name: "Montserrat", category: "Variable (2 axes)", author: "Julieta Ulanovsky", fontFamily: "sans-serif" },
-  { id: 8, name: "Oswald", category: "Variable (1 axis)", author: "Vernon Adams", fontFamily: "sans-serif" },
-  { id: 9, name: "Raleway", category: "Variable (2 axes)", author: "Matt McInerney", fontFamily: "sans-serif" },
-  { id: 10, name: "Poppins", category: "18 styles", author: "Indian Type Foundry", fontFamily: "sans-serif" },
-];
+import { useGoogleFonts } from "@/hooks/useGoogleFonts";
 
 const Index = () => {
   const [previewText, setPreviewText] = useState("TRADER");
   const [fontSize, setFontSize] = useState(40);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showFilters, setShowFilters] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortBy, setSortBy] = useState<'popularity' | 'alpha' | 'date' | 'trending'>('popularity');
+  const [loadedFonts, setLoadedFonts] = useState<Set<string>>(new Set());
 
-  // Pagination
-  const totalPages = Math.ceil(mockFonts.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedFonts = mockFonts.slice(startIndex, startIndex + itemsPerPage);
+  // Fetch fonts from Google Fonts API
+  const { data, isLoading, error } = useGoogleFonts({
+    page: currentPage,
+    limit: itemsPerPage,
+    sort: sortBy,
+    category: selectedCategory,
+    search: searchQuery,
+  });
+
+  const fonts = data?.fonts || [];
+  const totalPages = data?.pagination.totalPages || 1;
+  const totalFonts = data?.pagination.totalFonts || 0;
+
+  // Load Google Fonts dynamically
+  useEffect(() => {
+    fonts.forEach((font) => {
+      if (!loadedFonts.has(font.name)) {
+        const link = document.createElement('link');
+        link.href = font.googleFontUrl;
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+        setLoadedFonts(prev => new Set(prev).add(font.name));
+      }
+    });
+  }, [fonts, loadedFonts]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -68,6 +80,11 @@ const Index = () => {
                   <input
                     type="text"
                     placeholder="Search fonts"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setCurrentPage(1);
+                    }}
                     className="w-[300px] px-4 py-2 pl-10 bg-muted rounded-full text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                   <svg className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,11 +96,15 @@ const Index = () => {
               {/* Right side */}
               <div className="flex items-center gap-4">
                 <span className="text-sm text-muted-foreground">Sort by</span>
-                <select className="text-sm font-medium bg-transparent border-0 focus:outline-none cursor-pointer">
-                  <option>Relevance</option>
-                  <option>Popularity</option>
-                  <option>Newest</option>
-                  <option>Name</option>
+                <select 
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                  className="text-sm font-medium bg-transparent border-0 focus:outline-none cursor-pointer"
+                >
+                  <option value="popularity">Popularity</option>
+                  <option value="trending">Trending</option>
+                  <option value="alpha">Name</option>
+                  <option value="date">Newest</option>
                 </select>
               </div>
             </div>
@@ -107,7 +128,7 @@ const Index = () => {
             {/* Results info and view toggle */}
             <div className="flex items-center justify-between mb-6">
               <span className="text-sm text-muted-foreground">
-                {mockFonts.length} of {mockFonts.length} families
+                {isLoading ? "Loading..." : `${fonts.length} of ${totalFonts} families`}
               </span>
               
               <div className="flex items-center gap-4">
@@ -133,34 +154,51 @@ const Index = () => {
               </div>
             </div>
             
+            {/* Loading state */}
+            {isLoading && (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                <span className="ml-3 text-muted-foreground">Loading fonts from Google...</span>
+              </div>
+            )}
+
+            {/* Error state */}
+            {error && (
+              <div className="flex items-center justify-center py-20 text-destructive">
+                <span>Error loading fonts. Please try again.</span>
+              </div>
+            )}
+            
             {/* Fonts List */}
-            <div className="space-y-0">
-              {paginatedFonts.map((font) => (
-                <div key={font.id} className="border-b border-border py-6">
-                  {/* Font info */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-medium text-primary hover:underline cursor-pointer">
-                      {font.name}
-                    </span>
-                    <span className="text-sm text-muted-foreground">{font.category}</span>
-                    <span className="text-muted-foreground">|</span>
-                    <span className="text-sm text-muted-foreground">{font.author}</span>
+            {!isLoading && !error && (
+              <div className="space-y-0">
+                {fonts.map((font) => (
+                  <div key={font.id} className="border-b border-border py-6">
+                    {/* Font info */}
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-sm font-medium text-primary hover:underline cursor-pointer">
+                        {font.name}
+                      </span>
+                      <span className="text-sm text-muted-foreground capitalize">{font.category}</span>
+                      <span className="text-muted-foreground">|</span>
+                      <span className="text-sm text-muted-foreground">{font.variantsCount} styles</span>
+                    </div>
+                    
+                    {/* Font preview */}
+                    <div 
+                      className="text-foreground"
+                      style={{ 
+                        fontFamily: `"${font.name}", sans-serif`,
+                        fontSize: `${fontSize}px`,
+                        lineHeight: 1.2
+                      }}
+                    >
+                      {previewText || font.name}
+                    </div>
                   </div>
-                  
-                  {/* Font preview */}
-                  <div 
-                    className="text-foreground"
-                    style={{ 
-                      fontFamily: font.fontFamily,
-                      fontSize: `${fontSize}px`,
-                      lineHeight: 1.2
-                    }}
-                  >
-                    {previewText || font.name}
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
             
             {/* Pagination */}
             <div className="mt-8">
