@@ -2,9 +2,9 @@ import { useState, useMemo } from "react";
 import { IconSidebar } from "@/components/IconSidebar";
 import { EmojisConfigPanel } from "@/components/EmojisConfigPanel";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Search, Copy, Check } from "lucide-react";
-import { emojiCategories, EmojiCategory } from "@/lib/emojiData";
+import { emojiCategories } from "@/lib/emojiData";
+import { emojiToTwemojiUrl } from "@/lib/emojiUtils";
 import { useToast } from "@/hooks/use-toast";
 
 const EmojisPage = () => {
@@ -130,21 +130,42 @@ const EmojisPage = () => {
                       : 'grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-3'
                   }`}
                 >
-                  {category.emojis.map((emoji, index) => (
-                    <button
-                      key={`${category.id}-${index}`}
-                      onClick={() => handleCopyEmoji(emoji)}
-                      className={`group relative flex flex-col items-center justify-center rounded-lg border border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all duration-200 ${
-                        compactMode ? 'p-1' : 'p-3'
-                      } ${copiedEmoji === emoji ? 'bg-green-50 border-green-200' : ''}`}
-                      title="Clique para copiar"
-                    >
-                      <span 
-                        style={{ fontSize: `${emojiSize}px` }}
-                        className="leading-none select-none"
+                  {category.emojis.map((emoji, index) => {
+                    const useTwemoji = category.id === 'flags';
+                    
+                    return (
+                      <button
+                        key={`${category.id}-${index}`}
+                        onClick={() => handleCopyEmoji(emoji)}
+                        className={`group relative flex flex-col items-center justify-center rounded-lg border border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all duration-200 ${
+                          compactMode ? 'p-1' : 'p-3'
+                        } ${copiedEmoji === emoji ? 'bg-green-50 border-green-200' : ''}`}
+                        title="Clique para copiar"
                       >
-                        {emoji}
-                      </span>
+                        {useTwemoji ? (
+                          <img 
+                            src={emojiToTwemojiUrl(emoji)}
+                            alt={emoji}
+                            style={{ width: `${emojiSize}px`, height: `${emojiSize}px` }}
+                            className="select-none"
+                            loading="lazy"
+                            onError={(e) => {
+                              // Fallback to text emoji if image fails
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              target.parentElement?.insertAdjacentHTML('afterbegin', 
+                                `<span style="font-size: ${emojiSize}px" class="leading-none select-none">${emoji}</span>`
+                              );
+                            }}
+                          />
+                        ) : (
+                          <span 
+                            style={{ fontSize: `${emojiSize}px` }}
+                            className="leading-none select-none"
+                          >
+                            {emoji}
+                          </span>
+                        )}
                       
                       {showLabels && !compactMode && (
                         <span className="text-[10px] text-muted-foreground mt-1 truncate max-w-full">
@@ -162,8 +183,9 @@ const EmojisPage = () => {
                           <Copy className="w-4 h-4 text-muted-foreground" />
                         )}
                       </div>
-                    </button>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </section>
             ))}
