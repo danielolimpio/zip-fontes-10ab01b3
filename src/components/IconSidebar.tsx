@@ -44,8 +44,8 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
-                  <item.icon className="w-5 h-5" />
-                  <span className="text-[10px] mt-0.5">{item.label}</span>
+                  <item.icon className={item.label === "Insta Fonts" ? "w-6 h-6" : "w-5 h-5"} />
+                  <span className="text-[10px] mt-0.5">{item.label === "Insta Fonts" ? "Insta" : item.label}</span>
                 </button>
               </TooltipTrigger>
               <TooltipContent side="right">
