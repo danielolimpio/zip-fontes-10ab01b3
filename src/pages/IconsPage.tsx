@@ -2,8 +2,10 @@ import { useState, useMemo } from "react";
 import { IconSidebar } from "@/components/IconSidebar";
 import { IconFilterPanel } from "@/components/IconFilterPanel";
 import { IconDetailPanel } from "@/components/IconDetailPanel";
+import { PageHeader } from "@/components/PageHeader";
+import { PageFooter } from "@/components/PageFooter";
 import { Button } from "@/components/ui/button";
-import { X, Search } from "lucide-react";
+import { X } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -80,7 +82,7 @@ const IconsPage = () => {
       
       {/* Main Layout */}
       <div className="ml-20 flex min-h-screen">
-        {/* Filter Panel */}
+        {/* Filter Panel - w-72 padronizado */}
         {showFilters && (
           <IconFilterPanel
             iconWeight={iconWeight}
@@ -98,48 +100,30 @@ const IconsPage = () => {
         )}
         
         {/* Main Content Area */}
-        <main className="flex-1 min-h-screen bg-white">
-          {/* Header */}
-          <div className="sticky top-0 z-40 bg-white border-b border-border">
-            <div className="flex items-center justify-between px-6 py-4">
-              <div className="flex items-center gap-4">
-                {/* Logo */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold text-primary">⋮⋮</span>
-                  <span className="text-xl font-bold text-foreground">Zip Fontes</span>
-                </div>
-                
-                {/* Search */}
-                <div className="relative ml-6">
-                  <input
-                    type="text"
-                    placeholder="Search icons"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-[300px] px-4 py-2 pl-10 bg-muted rounded-full text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  />
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                </div>
-              </div>
-              
-              {/* Right side */}
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-muted-foreground">Sort by</span>
+        <main className="flex-1 min-h-screen bg-background flex flex-col">
+          {/* Header padronizado */}
+          <PageHeader
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            searchPlaceholder="Buscar ícones..."
+            rightContent={
+              <>
+                <span className="text-sm text-muted-foreground">Ordenar por</span>
                 <select 
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="text-sm font-medium bg-transparent border-0 focus:outline-none cursor-pointer"
                 >
-                  <option>Most popular</option>
-                  <option>Name</option>
-                  <option>Newest</option>
+                  <option>Mais populares</option>
+                  <option>Nome</option>
+                  <option>Mais recentes</option>
                 </select>
-              </div>
-            </div>
-          </div>
+              </>
+            }
+          />
           
           {/* Content */}
-          <div className="px-6 py-6">
+          <div className="px-6 py-6 flex-1">
             {/* Filters Button */}
             <div className="mb-6">
               <Button 
@@ -149,7 +133,7 @@ const IconsPage = () => {
                 className="gap-2"
               >
                 {showFilters ? <X className="w-4 h-4" /> : null}
-                Filters
+                Filtros
               </Button>
             </div>
             
@@ -160,8 +144,8 @@ const IconsPage = () => {
                   <LucideIcons.BookOpen className="w-5 h-5 text-muted-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Icon guidelines</p>
-                  <p className="text-xs text-muted-foreground">Learn best practices</p>
+                  <p className="text-sm font-medium">Guia de ícones</p>
+                  <p className="text-xs text-muted-foreground">Melhores práticas</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 border border-border rounded-lg min-w-[200px] hover:bg-muted/50 cursor-pointer">
@@ -169,8 +153,8 @@ const IconsPage = () => {
                   <LucideIcons.Figma className="w-5 h-5 text-muted-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Figma plugin</p>
-                  <p className="text-xs text-muted-foreground">Use icons in Figma</p>
+                  <p className="text-sm font-medium">Plugin Figma</p>
+                  <p className="text-xs text-muted-foreground">Use no Figma</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 border border-border rounded-lg min-w-[200px] hover:bg-muted/50 cursor-pointer">
@@ -178,8 +162,8 @@ const IconsPage = () => {
                   <LucideIcons.Github className="w-5 h-5 text-muted-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">GitHub repo</p>
-                  <p className="text-xs text-muted-foreground">View source code</p>
+                  <p className="text-sm font-medium">Repositório GitHub</p>
+                  <p className="text-xs text-muted-foreground">Código fonte</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 border border-border rounded-lg min-w-[200px] hover:bg-muted/50 cursor-pointer">
@@ -187,16 +171,16 @@ const IconsPage = () => {
                   <LucideIcons.FileText className="w-5 h-5 text-muted-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Apache license</p>
-                  <p className="text-xs text-muted-foreground">Free for commercial use</p>
+                  <p className="text-sm font-medium">Licença Apache</p>
+                  <p className="text-xs text-muted-foreground">Uso comercial livre</p>
                 </div>
               </div>
             </div>
             
             {/* Category Label */}
             <h2 className="text-sm font-medium text-muted-foreground mb-4">
-              {selectedCategory === "All" ? "All icons" : selectedCategory} 
-              <span className="ml-2 text-xs">({filteredIcons.length} icons)</span>
+              {selectedCategory === "All" ? "Todos os ícones" : selectedCategory} 
+              <span className="ml-2 text-xs">({filteredIcons.length} ícones)</span>
             </h2>
             
             {/* Icons Grid */}
@@ -220,6 +204,9 @@ const IconsPage = () => {
               ))}
             </div>
           </div>
+          
+          {/* Footer padronizado */}
+          <PageFooter />
         </main>
         
         {/* Icon Detail Panel */}

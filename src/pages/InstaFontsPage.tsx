@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
-import { Copy, Check, Search, Sparkles, Info, Heart } from "lucide-react";
+import { Copy, Check, Sparkles, Info, Heart } from "lucide-react";
 import { IconSidebar } from "@/components/IconSidebar";
 import { InstaFontsConfigPanel } from "@/components/InstaFontsConfigPanel";
-import { Input } from "@/components/ui/input";
+import { PageHeader } from "@/components/PageHeader";
+import { PageFooter } from "@/components/PageFooter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { fontStyles } from "@/lib/unicodeFonts";
@@ -63,7 +64,7 @@ const InstaFontsPage = () => {
       
       {/* Main Layout */}
       <div className="ml-20 flex min-h-screen">
-        {/* Config Panel */}
+        {/* Config Panel - w-72 padronizado */}
         <InstaFontsConfigPanel
           inputText={inputText}
           onInputTextChange={setInputText}
@@ -74,40 +75,22 @@ const InstaFontsPage = () => {
         />
         
         {/* Main Content Area */}
-        <main className="flex-1 min-h-screen bg-white">
-          {/* Header */}
-          <div className="sticky top-0 z-40 bg-white border-b border-border">
-            <div className="flex items-center justify-between px-6 py-4">
-              <div className="flex items-center gap-4">
-                {/* Logo */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold text-primary">⋮⋮</span>
-                  <span className="text-xl font-bold text-foreground">Zip Fontes</span>
-                </div>
-                
-                {/* Search */}
-                <div className="relative ml-6">
-                  <input
-                    type="text"
-                    placeholder="Buscar estilos..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-[300px] px-4 py-2 pl-10 bg-muted rounded-full text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  />
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                </div>
-              </div>
-              
-              {/* Right side - Page title */}
+        <main className="flex-1 min-h-screen bg-background flex flex-col">
+          {/* Header padronizado */}
+          <PageHeader
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            searchPlaceholder="Buscar estilos..."
+            rightContent={
               <div className="flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-primary" />
                 <span className="text-sm font-medium text-foreground">Insta Fonts</span>
               </div>
-            </div>
-          </div>
+            }
+          />
           
           {/* Content */}
-          <div className="px-6 py-6">
+          <div className="px-6 py-6 flex-1">
             {/* Results info and actions */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
@@ -129,7 +112,7 @@ const InstaFontsPage = () => {
               
               <div className="flex items-center gap-4">
                 <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-                  Sobre esses resultados
+                  Sobre os resultados
                   <Info className="w-4 h-4" />
                 </button>
                 
@@ -219,21 +202,8 @@ const InstaFontsPage = () => {
             )}
           </div>
           
-          {/* Footer */}
-          <footer className="bg-muted/30 py-6 mt-auto">
-            <div className="px-6 text-center">
-              <div className="flex items-center justify-center gap-4 mb-2">
-                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Ajuda e suporte</a>
-                <span className="text-muted-foreground">|</span>
-                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Privacidade e cookies</a>
-                <span className="text-muted-foreground">|</span>
-                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Contate-nos</a>
-              </div>
-              <p className="text-xs text-muted-foreground">
-                © 2006-2025 Zip Fontes. Todos os direitos reservados.
-              </p>
-            </div>
-          </footer>
+          {/* Footer padronizado */}
+          <PageFooter />
         </main>
       </div>
     </div>
