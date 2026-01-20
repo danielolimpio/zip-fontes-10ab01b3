@@ -436,12 +436,354 @@ export const fontStyles: { name: string; transform: (text: string) => string; ca
     name: "Fire",
     category: "Decorated",
     transform: (text) => `🔥 ${text} 🔥`
+  },
+  // NEW STYLES - Cursive & Old English
+  {
+    name: "Cursive Elegant",
+    category: "Cursive",
+    transform: (text) => transformText(text, createCharMap(
+      "𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵",
+      "𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏"
+    ))
+  },
+  {
+    name: "Fancy Cursive",
+    category: "Cursive",
+    transform: (text) => transformText(text, createCharMap(
+      "αβ¢∂єƒgнιנкℓмησρqяѕтυνωχуz",
+      "αβ¢∂єƒgнιנкℓмησρqяѕтυνωχуz"
+    ))
+  },
+  {
+    name: "Old English",
+    category: "Gothic",
+    transform: (text) => transformText(text, createCharMap(
+      "𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ",
+      "𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷"
+    ))
+  },
+  {
+    name: "Old English Bold",
+    category: "Gothic",
+    transform: (text) => transformText(text, createCharMap(
+      "𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅",
+      "𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟"
+    ))
+  },
+  // More Symbol Styles
+  {
+    name: "Diamonds",
+    category: "Symbols",
+    transform: (text) => `◈ ${text} ◈`
+  },
+  {
+    name: "Lightning",
+    category: "Symbols",
+    transform: (text) => `⚡ ${text} ⚡`
+  },
+  {
+    name: "Snowflakes",
+    category: "Symbols",
+    transform: (text) => `❄ ${text} ❄`
+  },
+  {
+    name: "Stars Glow",
+    category: "Symbols",
+    transform: (text) => `✦ ${text} ✦`
+  },
+  {
+    name: "Butterfly",
+    category: "Symbols",
+    transform: (text) => `🦋 ${text} 🦋`
+  },
+  {
+    name: "Rose",
+    category: "Symbols",
+    transform: (text) => `🌹 ${text} 🌹`
+  },
+  {
+    name: "Moon Stars",
+    category: "Symbols",
+    transform: (text) => `☾ ${text} ☽`
+  },
+  {
+    name: "Sun",
+    category: "Symbols",
+    transform: (text) => `☀ ${text} ☀`
+  },
+  {
+    name: "Infinity",
+    category: "Symbols",
+    transform: (text) => `∞ ${text} ∞`
+  },
+  {
+    name: "Angel Wings",
+    category: "Symbols",
+    transform: (text) => `♱ ${text} ♱`
+  },
+  {
+    name: "Double Hearts",
+    category: "Symbols",
+    transform: (text) => `💕 ${text} 💕`
+  },
+  {
+    name: "Sparkle Heart",
+    category: "Symbols",
+    transform: (text) => `💖 ${text} 💖`
+  },
+  // Fancy Borders
+  {
+    name: "Ornate Border",
+    category: "Borders",
+    transform: (text) => `•°¯\`•.¸.•´¯°• ${text} •°¯\`•.¸.•´¯°•`
+  },
+  {
+    name: "Star Border",
+    category: "Borders",
+    transform: (text) => `★·.·´¯\`·.·★ ${text} ★·.·´¯\`·.·★`
+  },
+  {
+    name: "Wave Border",
+    category: "Borders",
+    transform: (text) => `~»«~ ${text} ~»«~`
+  },
+  {
+    name: "Arrow Border",
+    category: "Borders",
+    transform: (text) => `»»————> ${text} <————««`
+  },
+  {
+    name: "Elegant Border",
+    category: "Borders",
+    transform: (text) => `═══════ ∘◦❁◦∘ ${text} ∘◦❁◦∘ ═══════`
+  },
+  {
+    name: "Fancy Divider",
+    category: "Borders",
+    transform: (text) => `┊͙ ˘͈ᵕ˘͈ ${text} ˘͈ᵕ˘͈ ͙┊`
+  },
+  {
+    name: "Sparkle Border",
+    category: "Borders",
+    transform: (text) => `・:*:・゚★ ${text} ★゚・:*:・`
+  },
+  {
+    name: "Floral Border",
+    category: "Borders",
+    transform: (text) => `❀✿❀ ${text} ❀✿❀`
+  },
+  // Aesthetic Styles
+  {
+    name: "Spaced Out",
+    category: "Aesthetic",
+    transform: (text) => text.split('').join('  ')
+  },
+  {
+    name: "Dotted Between",
+    category: "Aesthetic",
+    transform: (text) => text.split('').join('·')
+  },
+  {
+    name: "Star Between",
+    category: "Aesthetic",
+    transform: (text) => text.split('').join('★')
+  },
+  {
+    name: "Heart Between",
+    category: "Aesthetic",
+    transform: (text) => text.split('').join('♡')
+  },
+  {
+    name: "Dash Between",
+    category: "Aesthetic",
+    transform: (text) => text.split('').join('-')
+  },
+  // Special Unicode Alphabets
+  {
+    name: "Runic",
+    category: "Ancient",
+    transform: (text) => transformText(text, createCharMap(
+      "ᛆᛒᛍᛑᛂᚠᚵᚺᛁᛃᛕᛚᛗᚾᚮᛔᚴᚱᛋᛐᚢᚡᚥᛪᛦᛎ",
+      "ᛆᛒᛍᛑᛂᚠᚵᚺᛁᛃᛕᛚᛗᚾᚮᛔᚴᚱᛋᛐᚢᚡᚥᛪᛦᛎ"
+    ))
+  },
+  {
+    name: "Egyptian",
+    category: "Ancient",
+    transform: (text) => transformText(text, createCharMap(
+      "𓄿𓃀𓎡𓂧𓂝𓆑𓎼𓉔𓇋𓆓𓎝𓃭𓅓𓈖𓍯𓊪𓏘𓂋𓋴𓏏𓅱𓌭𓅳𓊛𓏭𓊃",
+      "𓄿𓃀𓎡𓂧𓂝𓆑𓎼𓉔𓇋𓆓𓎝𓃭𓅓𓈖𓍯𓊪𓏘𓂋𓋴𓏏𓅱𓌭𓅳𓊛𓏭𓊃"
+    ))
+  },
+  {
+    name: "Japanese Katakana",
+    category: "Asian",
+    transform: (text) => transformText(text, createCharMap(
+      "ムЪᄃりモｷムんノフズᄂﾶ刀のｱゐ尺丂イひ√山ﾒㄚ乙",
+      "ムЪᄃりモｷムんノフズᄂﾶ刀のｱゐ尺丂イひ√山ﾒㄚ乙"
+    ))
+  },
+  {
+    name: "Thai Style",
+    category: "Asian",
+    transform: (text) => transformText(text, createCharMap(
+      "ค๒ς๔єŦﻮђเןкɭ๓ภ๏קợгรՇยשฬאץչ",
+      "ค๒ς๔єŦﻮђเןкɭ๓ภ๏קợгรՇยשฬאץչ"
+    ))
+  },
+  // More Fun Styles
+  {
+    name: "Alien",
+    category: "Fun",
+    transform: (text) => `👽 ${text} 👽`
+  },
+  {
+    name: "Gaming",
+    category: "Fun",
+    transform: (text) => `🎮 ${text} 🎮`
+  },
+  {
+    name: "Skull",
+    category: "Fun",
+    transform: (text) => `💀 ${text} 💀`
+  },
+  {
+    name: "Ghost",
+    category: "Fun",
+    transform: (text) => `👻 ${text} 👻`
+  },
+  {
+    name: "Sword",
+    category: "Fun",
+    transform: (text) => `⚔ ${text} ⚔`
+  },
+  {
+    name: "Shield",
+    category: "Fun",
+    transform: (text) => `🛡 ${text} 🛡`
+  },
+  {
+    name: "Magic Wand",
+    category: "Fun",
+    transform: (text) => `🪄 ${text} 🪄`
+  },
+  {
+    name: "Crystal Ball",
+    category: "Fun",
+    transform: (text) => `🔮 ${text} 🔮`
+  },
+  {
+    name: "Rainbow",
+    category: "Fun",
+    transform: (text) => `🌈 ${text} 🌈`
+  },
+  {
+    name: "Rocket",
+    category: "Fun",
+    transform: (text) => `🚀 ${text} 🚀`
+  },
+  // Glitch/Corrupted Style
+  {
+    name: "Glitch Heavy",
+    category: "Glitch",
+    transform: (text) => {
+      const glitchChars = ['\u0300', '\u0301', '\u0302', '\u0303', '\u0304', '\u0305', '\u0306', '\u0307', '\u0308', '\u0309', '\u030A', '\u030B', '\u030C', '\u030D', '\u030E', '\u030F'];
+      const below = ['\u0316', '\u0317', '\u0318', '\u0319', '\u031A', '\u031B', '\u031C', '\u031D', '\u031E', '\u031F'];
+      return text.split('').map(c => {
+        let result = c;
+        const numAbove = Math.floor(Math.random() * 3) + 1;
+        const numBelow = Math.floor(Math.random() * 3) + 1;
+        for (let i = 0; i < numAbove; i++) {
+          result += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+        }
+        for (let i = 0; i < numBelow; i++) {
+          result += below[Math.floor(Math.random() * below.length)];
+        }
+        return result;
+      }).join('');
+    }
+  },
+  {
+    name: "Glitch Mild",
+    category: "Glitch",
+    transform: (text) => {
+      const glitchChars = ['\u0300', '\u0301', '\u0302', '\u0303'];
+      return text.split('').map(c => {
+        return c + glitchChars[Math.floor(Math.random() * glitchChars.length)];
+      }).join('');
+    }
+  },
+  // Retro/Vintage
+  {
+    name: "Typewriter",
+    category: "Retro",
+    transform: (text) => transformText(text, createCharMap(
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ"
+    ))
+  },
+  {
+    name: "Telegram Style",
+    category: "Retro",
+    transform: (text) => `[[ ${text.toUpperCase()} ]]`
+  },
+  {
+    name: "Morse Border",
+    category: "Retro",
+    transform: (text) => `·-·- ${text} -·-·`
+  },
+  // Social Media Specific
+  {
+    name: "Bio Link",
+    category: "Social",
+    transform: (text) => `↓ ${text} ↓`
+  },
+  {
+    name: "Follow Me",
+    category: "Social",
+    transform: (text) => `☞ ${text} ☜`
+  },
+  {
+    name: "DM Open",
+    category: "Social",
+    transform: (text) => `✉ ${text} ✉`
+  },
+  {
+    name: "Verified Style",
+    category: "Social",
+    transform: (text) => `${text} ✓`
+  },
+  {
+    name: "Hashtag Style",
+    category: "Social",
+    transform: (text) => `#${text.replace(/\s+/g, '')}`
+  },
+  // Minimalist
+  {
+    name: "Clean Dots",
+    category: "Minimal",
+    transform: (text) => `• ${text} •`
+  },
+  {
+    name: "Simple Lines",
+    category: "Minimal",
+    transform: (text) => `— ${text} —`
+  },
+  {
+    name: "Subtle Arrows",
+    category: "Minimal",
+    transform: (text) => `› ${text} ‹`
+  },
+  {
+    name: "Pipe Style",
+    category: "Minimal",
+    transform: (text) => `| ${text} |`
   }
 ];
 
 // Helper function to transform text using a character map
 function transformText(text: string, charMap: CharMap): string {
-  return text.split('').map(char => charMap[char] || char).join('');
+  return [...text].map(char => charMap[char] || char).join('');
 }
 
 // Get all unique categories
