@@ -43,27 +43,27 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-16 bg-background border-r border-border flex flex-col items-center py-4 z-50">
+    <aside className="fixed left-0 top-0 bottom-0 w-20 bg-background border-r border-border flex flex-col items-center py-6 z-50">
       {/* Logo */}
-      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl mb-6">
+      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-2xl mb-8">
         A
       </div>
       
       <TooltipProvider>
-        <nav className="flex flex-col items-center gap-2 flex-1">
+        <nav className="flex flex-col items-center gap-3 flex-1">
           {menuItems.map((item, index) => (
             <Tooltip key={index}>
               <TooltipTrigger asChild>
                 <button
                   onClick={() => navigate(item.href)}
-                  className={`w-10 h-10 flex flex-col items-center justify-center rounded-lg transition-colors ${
+                  className={`w-16 h-16 flex flex-col items-center justify-center rounded-xl transition-colors ${
                     isActive(item) 
                       ? 'text-primary bg-primary/10' 
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
-                  <item.icon className={'largeIcon' in item && item.largeIcon ? "w-6 h-6" : "w-5 h-5"} />
-                  <span className="text-[10px] mt-0.5">{item.label}</span>
+                  <item.icon className={'largeIcon' in item && item.largeIcon ? "w-7 h-7" : "w-6 h-6"} />
+                  <span className="text-xs mt-1.5 font-medium">{item.label}</span>
                 </button>
               </TooltipTrigger>
               <TooltipContent side="right">
@@ -78,13 +78,13 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
           <TooltipTrigger asChild>
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              className={`w-12 h-12 flex items-center justify-center rounded-xl transition-colors ${
                 darkMode 
                   ? 'text-yellow-400 bg-yellow-400/10' 
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
             >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {darkMode ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
             </button>
           </TooltipTrigger>
           <TooltipContent side="right">
