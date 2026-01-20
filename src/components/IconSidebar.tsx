@@ -65,12 +65,14 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
                   }`}
                 >
                   {'customIcon' in item && item.customIcon ? (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="13.5" cy="6.5" r="2.5" stroke={isActive(item) ? 'currentColor' : '#F44336'} />
-                      <circle cx="17.5" cy="10.5" r="2.5" stroke={isActive(item) ? 'currentColor' : '#4CAF50'} />
-                      <circle cx="8.5" cy="7.5" r="2.5" stroke={isActive(item) ? 'currentColor' : '#2196F3'} />
-                      <circle cx="6.5" cy="12.5" r="2.5" stroke={isActive(item) ? 'currentColor' : '#FF9800'} />
-                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2Z" stroke={isActive(item) ? 'currentColor' : '#9C27B0'} />
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+                      {/* Paleta base */}
+                      <circle cx="12" cy="12" r="10" stroke={isActive(item) ? 'currentColor' : '#9E9E9E'} strokeWidth="2" fill="none" />
+                      {/* Gotas coloridas */}
+                      <circle cx="8" cy="8" r="2.5" fill={isActive(item) ? 'hsl(var(--primary))' : '#F44336'} />
+                      <circle cx="16" cy="8" r="2.5" fill={isActive(item) ? 'hsl(var(--primary))' : '#2196F3'} />
+                      <circle cx="8" cy="14" r="2.5" fill={isActive(item) ? 'hsl(var(--primary))' : '#FFEB3B'} />
+                      <circle cx="16" cy="14" r="2.5" fill={isActive(item) ? 'hsl(var(--primary))' : '#4CAF50'} />
                     </svg>
                   ) : (
                     <item.icon className={'largeIcon' in item && item.largeIcon ? "w-7 h-7" : "w-6 h-6"} />
