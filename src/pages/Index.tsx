@@ -53,9 +53,9 @@ const Index = () => {
         )}
         
         {/* Main Content Area - full width */}
-        <main className="flex-1 min-h-screen bg-white">
+        <main className="flex-1 min-h-screen bg-background">
           {/* Header dentro do conteúdo */}
-          <div className="sticky top-0 z-40 bg-white border-b border-border">
+          <div className="sticky top-0 z-40 bg-background border-b border-border">
             <div className="flex items-center justify-between px-6 py-4">
               <div className="flex items-center gap-4">
                 {/* Logo */}

@@ -1,98 +1,98 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Globe, Smile, RotateCcw, X, Shirt, Type, Calendar, Settings2 } from "lucide-react";
+import { ChevronDown, ChevronUp, Smile, RotateCcw, X, Shirt, Type, Calendar, Settings2 } from "lucide-react";
 import { Input } from "./ui/input";
 import { Slider } from "./ui/slider";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Button } from "./ui/button";
 
 const feelingTags = [
-  { label: "Business", style: "normal" },
-  { label: "Fancy", style: "italic" },
-  { label: "Calm", style: "normal" },
-  { label: "Playful", style: "bold" },
-  { label: "Cute", style: "italic" },
-  { label: "Artistic", style: "bold" },
-  { label: "Vintage", style: "italic" },
-  { label: "Loud", style: "bold" },
-  { label: "Sophisticated", style: "italic" },
-  { label: "Futuristic", style: "normal" },
-  { label: "Active", style: "bold" },
-  { label: "Stiff", style: "normal" },
-  { label: "Innovative", style: "bold" },
-  { label: "Happy", style: "italic" },
-  { label: "Childlike", style: "normal" },
-  { label: "Rugged", style: "normal" },
-  { label: "Awkward", style: "italic" },
-  { label: "Excited", style: "uppercase" },
+  { label: "Business", style: "normal", fontFamily: "Arial, sans-serif" },
+  { label: "Fancy", style: "italic", fontFamily: "'Brush Script MT', cursive" },
+  { label: "Calm", style: "normal", fontFamily: "'Georgia', serif" },
+  { label: "Playful", style: "bold", fontFamily: "'Comic Sans MS', cursive" },
+  { label: "Cute", style: "italic", fontFamily: "'Segoe Script', cursive" },
+  { label: "Artistic", style: "bold", fontFamily: "'Papyrus', fantasy" },
+  { label: "Vintage", style: "italic", fontFamily: "'Times New Roman', serif" },
+  { label: "Loud", style: "bold", fontFamily: "'Impact', sans-serif" },
+  { label: "Sophisticated", style: "italic", fontFamily: "'Palatino Linotype', serif" },
+  { label: "Futuristic", style: "normal", fontFamily: "'Trebuchet MS', sans-serif" },
+  { label: "Active", style: "bold", fontFamily: "'Arial Black', sans-serif" },
+  { label: "Stiff", style: "normal", fontFamily: "'Courier New', monospace" },
+  { label: "Innovative", style: "bold", fontFamily: "'Century Gothic', sans-serif" },
+  { label: "Happy", style: "italic", fontFamily: "'Segoe Script', cursive" },
+  { label: "Childlike", style: "normal", fontFamily: "'Comic Sans MS', cursive" },
+  { label: "Rugged", style: "normal", fontFamily: "'Rockwell', serif" },
+  { label: "Awkward", style: "italic", fontFamily: "'Courier New', monospace" },
+  { label: "Excited", style: "uppercase", fontFamily: "'Impact', sans-serif" },
 ];
 
 const appearanceTags = [
-  { label: "Valentine's", style: "italic" },
-  { label: "Techno", style: "normal" },
-  { label: "Monospaced", style: "normal" },
-  { label: "Blobby", style: "bold" },
-  { label: "Marker", style: "normal" },
-  { label: "Art Deco", style: "normal" },
-  { label: "Art Nouveau", style: "normal" },
-  { label: "Distressed", style: "normal" },
-  { label: "Stencil", style: "bold" },
-  { label: "Wood type", style: "normal" },
-  { label: "Medieval", style: "italic" },
-  { label: "Blackletter", style: "bold" },
-  { label: "Pixel", style: "normal" },
-  { label: "Not text", style: "normal" },
-  { label: "Tuscan", style: "italic" },
-  { label: "Wacky", style: "uppercase" },
-  { label: "Shaded", style: "bold" },
-  { label: "Inline", style: "italic" },
+  { label: "Valentine's", style: "italic", fontFamily: "'Segoe Script', cursive" },
+  { label: "Techno", style: "normal", fontFamily: "'Orbitron', sans-serif" },
+  { label: "Monospaced", style: "normal", fontFamily: "'Courier New', monospace" },
+  { label: "Blobby", style: "bold", fontFamily: "'Comic Sans MS', cursive" },
+  { label: "Marker", style: "normal", fontFamily: "'Marker Felt', fantasy" },
+  { label: "Art Deco", style: "normal", fontFamily: "'Copperplate', serif" },
+  { label: "Art Nouveau", style: "normal", fontFamily: "'Palatino Linotype', serif" },
+  { label: "Distressed", style: "normal", fontFamily: "'Courier New', monospace" },
+  { label: "Stencil", style: "bold", fontFamily: "'Stencil', fantasy" },
+  { label: "Wood type", style: "normal", fontFamily: "'Rockwell', serif" },
+  { label: "Medieval", style: "italic", fontFamily: "'Old English Text MT', fantasy" },
+  { label: "Blackletter", style: "bold", fontFamily: "'Old English Text MT', fantasy" },
+  { label: "Pixel", style: "normal", fontFamily: "'Courier New', monospace" },
+  { label: "Not text", style: "normal", fontFamily: "'Wingdings', fantasy" },
+  { label: "Tuscan", style: "italic", fontFamily: "'Playfair Display', serif" },
+  { label: "Wacky", style: "uppercase", fontFamily: "'Comic Sans MS', cursive" },
+  { label: "Shaded", style: "bold", fontFamily: "'Copperplate', serif" },
+  { label: "Inline", style: "italic", fontFamily: "'Copperplate', serif" },
 ];
 
 const calligraphyTags = [
-  { label: "All", style: "normal" },
-  { label: "Handwritten", style: "italic" },
-  { label: "Formal", style: "italic" },
-  { label: "Informal", style: "underline" },
-  { label: "Upright", style: "normal" },
+  { label: "All", style: "normal", fontFamily: "'Georgia', serif" },
+  { label: "Handwritten", style: "italic", fontFamily: "'Brush Script MT', cursive" },
+  { label: "Formal", style: "italic", fontFamily: "'Edwardian Script ITC', cursive" },
+  { label: "Informal", style: "underline", fontFamily: "'Segoe Script', cursive" },
+  { label: "Upright", style: "normal", fontFamily: "'Lucida Calligraphy', cursive" },
 ];
 
 const serifTags = [
-  { label: "All", style: "normal" },
-  { label: "Transitional", style: "normal" },
-  { label: "Slab", style: "normal" },
-  { label: "Old Style", style: "normal" },
-  { label: "Modern", style: "normal" },
-  { label: "Humanist", style: "bold" },
-  { label: "Scotch", style: "normal" },
-  { label: "Fatface", style: "bold" },
-  { label: "Didone", style: "normal" },
+  { label: "All", style: "normal", fontFamily: "'Georgia', serif" },
+  { label: "Transitional", style: "normal", fontFamily: "'Times New Roman', serif" },
+  { label: "Slab", style: "normal", fontFamily: "'Rockwell', serif" },
+  { label: "Old Style", style: "normal", fontFamily: "'Palatino Linotype', serif" },
+  { label: "Modern", style: "normal", fontFamily: "'Didot', serif" },
+  { label: "Humanist", style: "bold", fontFamily: "'Palatino Linotype', serif" },
+  { label: "Scotch", style: "normal", fontFamily: "'Georgia', serif" },
+  { label: "Fatface", style: "bold", fontFamily: "'Bodoni MT Black', serif" },
+  { label: "Didone", style: "normal", fontFamily: "'Didot', serif" },
 ];
 
 const sansSerifTags = [
-  { label: "All", style: "normal" },
-  { label: "Humanist", style: "bold" },
-  { label: "Geometric", style: "normal" },
-  { label: "Neo Grotesque", style: "normal" },
-  { label: "Rounded", style: "normal" },
-  { label: "Superellipse", style: "normal" },
-  { label: "Grotesque", style: "bold" },
-  { label: "Glyphic", style: "normal" },
+  { label: "All", style: "normal", fontFamily: "'Arial', sans-serif" },
+  { label: "Humanist", style: "bold", fontFamily: "'Verdana', sans-serif" },
+  { label: "Geometric", style: "normal", fontFamily: "'Futura', sans-serif" },
+  { label: "Neo Grotesque", style: "normal", fontFamily: "'Helvetica', sans-serif" },
+  { label: "Rounded", style: "normal", fontFamily: "'Arial Rounded MT Bold', sans-serif" },
+  { label: "Superellipse", style: "normal", fontFamily: "'Segoe UI', sans-serif" },
+  { label: "Grotesque", style: "bold", fontFamily: "'Franklin Gothic', sans-serif" },
+  { label: "Glyphic", style: "normal", fontFamily: "'Optima', sans-serif" },
 ];
 
 const technologyTags = [
-  { label: "Variable", style: "normal" },
-  { label: "Color", style: "color" },
-  { label: "None", style: "normal" },
+  { label: "Variable", style: "normal", fontFamily: "'Segoe UI', sans-serif" },
+  { label: "Color", style: "color", fontFamily: "'Segoe UI Emoji', sans-serif" },
+  { label: "None", style: "normal", fontFamily: "'Arial', sans-serif" },
 ];
 
 const seasonalTags = [
-  { label: "Lunar New Year", style: "normal" },
-  { label: "Valentine's", style: "italic" },
-  { label: "Holi", style: "colorful" },
-  { label: "Halloween", style: "uppercase" },
-  { label: "Diwali", style: "normal" },
-  { label: "Christmas", style: "bold" },
-  { label: "Hanukkah", style: "italic" },
-  { label: "Kwanzaa", style: "bold" },
+  { label: "Lunar New Year", style: "normal", fontFamily: "'SimSun', serif" },
+  { label: "Valentine's", style: "italic", fontFamily: "'Brush Script MT', cursive" },
+  { label: "Holi", style: "colorful", fontFamily: "'Arial Black', sans-serif" },
+  { label: "Halloween", style: "uppercase", fontFamily: "'Chiller', fantasy" },
+  { label: "Diwali", style: "normal", fontFamily: "'Devanagari MT', serif" },
+  { label: "Christmas", style: "bold", fontFamily: "'Brush Script MT', cursive" },
+  { label: "Hanukkah", style: "italic", fontFamily: "'Times New Roman', serif" },
+  { label: "Kwanzaa", style: "bold", fontFamily: "'Impact', sans-serif" },
 ];
 
 interface FilterPanelProps {
@@ -124,7 +124,7 @@ const FilterSection = ({
 }: { 
   title: string; 
   icon: React.ElementType; 
-  tags: { label: string; style: string }[]; 
+  tags: { label: string; style: string; fontFamily: string }[]; 
   selectedTags: string[];
   onToggle: (tag: string) => void;
   defaultOpen?: boolean;
@@ -141,19 +141,20 @@ const FilterSection = ({
         {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
       </CollapsibleTrigger>
       <CollapsibleContent className="pt-3">
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-2 gap-2">
           {tags.map((tag) => (
             <button
               key={tag.label}
               onClick={() => onToggle(tag.label)}
-              className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${
+              className={`px-3 py-1.5 text-xs rounded-full border transition-colors text-center ${
                 selectedTags.includes(tag.label)
                   ? 'bg-primary text-primary-foreground border-primary'
                   : 'bg-muted border-border text-foreground hover:border-primary'
-              } ${getTagStyle(tag.style)}`}
+              }`}
+              style={{ fontFamily: tag.fontFamily }}
             >
               {selectedTags.includes(tag.label) && "✓ "}
-              {tag.label}
+              <span className={getTagStyle(tag.style)}>{tag.label}</span>
             </button>
           ))}
         </div>
@@ -237,27 +238,6 @@ export const FilterPanel = ({
         <div className="mb-4">
           <h3 className="text-sm font-medium text-foreground mb-4">Filter</h3>
         </div>
-
-        {/* Language Collapsible */}
-        <Collapsible defaultOpen className="mb-4">
-          <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-sm font-medium text-foreground hover:text-primary">
-            <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4" />
-              Language
-            </div>
-            <ChevronUp className="w-4 h-4" />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="pt-2 space-y-2">
-            <Button variant="outline" size="sm" className="w-full justify-start text-sm font-normal">
-              Writing system
-              <ChevronDown className="w-4 h-4 ml-auto" />
-            </Button>
-            <Button variant="outline" size="sm" className="w-full justify-start text-sm font-normal">
-              Language
-              <ChevronDown className="w-4 h-4 ml-auto" />
-            </Button>
-          </CollapsibleContent>
-        </Collapsible>
 
         {/* Feeling */}
         <FilterSection
