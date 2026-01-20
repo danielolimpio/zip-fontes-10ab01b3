@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search, Copy, Check } from "lucide-react";
 import { emojiCategories } from "@/lib/emojiData";
 import { emojiToTwemojiUrl } from "@/lib/emojiUtils";
+import { getEmojiName } from "@/lib/emojiNames";
 import { useToast } from "@/hooks/use-toast";
 
 const EmojisPage = () => {
@@ -130,46 +131,44 @@ const EmojisPage = () => {
                       : 'grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-3'
                   }`}
                 >
-                  {category.emojis.map((emoji, index) => {
-                    const useTwemoji = category.id === 'flags';
+                {category.emojis.map((emoji, index) => {
+                    const emojiName = getEmojiName(emoji);
                     
                     return (
                       <button
                         key={`${category.id}-${index}`}
                         onClick={() => handleCopyEmoji(emoji)}
                         className={`group relative flex flex-col items-center justify-center rounded-lg border border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all duration-200 ${
-                          compactMode ? 'p-1' : 'p-3'
+                          compactMode ? 'p-1 pb-2' : 'p-3 pb-5'
                         } ${copiedEmoji === emoji ? 'bg-green-50 border-green-200' : ''}`}
-                        title="Clique para copiar"
+                        title={emojiName}
                       >
-                        {useTwemoji ? (
-                          <img 
-                            src={emojiToTwemojiUrl(emoji)}
-                            alt={emoji}
-                            style={{ width: `${emojiSize}px`, height: `${emojiSize}px` }}
-                            className="select-none"
-                            loading="lazy"
-                            onError={(e) => {
-                              // Fallback to text emoji if image fails
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                              target.parentElement?.insertAdjacentHTML('afterbegin', 
-                                `<span style="font-size: ${emojiSize}px" class="leading-none select-none">${emoji}</span>`
-                              );
-                            }}
-                          />
-                        ) : (
-                          <span 
-                            style={{ fontSize: `${emojiSize}px` }}
-                            className="leading-none select-none"
-                          >
-                            {emoji}
-                          </span>
-                        )}
+                        <img 
+                          src={emojiToTwemojiUrl(emoji)}
+                          alt={emojiName}
+                          style={{ width: `${emojiSize}px`, height: `${emojiSize}px` }}
+                          className="select-none"
+                          loading="lazy"
+                          onError={(e) => {
+                            // Fallback to text emoji if image fails
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            target.parentElement?.insertAdjacentHTML('afterbegin', 
+                              `<span style="font-size: ${emojiSize}px" class="leading-none select-none">${emoji}</span>`
+                            );
+                          }}
+                        />
                       
+                      {/* Name badge - appears on hover */}
+                      {!compactMode && (
+                        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[9px] text-muted-foreground bg-muted/80 px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap max-w-[90%] truncate pointer-events-none">
+                          {emojiName}
+                        </span>
+                      )}
+
                       {showLabels && !compactMode && (
                         <span className="text-[10px] text-muted-foreground mt-1 truncate max-w-full">
-                          Emoji
+                          {emojiName}
                         </span>
                       )}
 
