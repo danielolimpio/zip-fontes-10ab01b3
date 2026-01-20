@@ -79,7 +79,7 @@ const IconsPage = () => {
       <IconSidebar activeItem="Icons" />
       
       {/* Main Layout */}
-      <div className="ml-16 flex min-h-screen">
+      <div className="ml-20 flex min-h-screen">
         {/* Filter Panel */}
         {showFilters && (
           <IconFilterPanel

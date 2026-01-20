@@ -62,7 +62,7 @@ const InstaFontsPage = () => {
       <IconSidebar activeItem="Insta Fonts" />
       
       {/* Main Layout */}
-      <div className="ml-16 flex min-h-screen">
+      <div className="ml-20 flex min-h-screen">
         {/* Config Panel */}
         <InstaFontsConfigPanel
           inputText={inputText}

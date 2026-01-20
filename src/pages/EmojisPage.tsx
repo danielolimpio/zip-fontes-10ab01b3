@@ -67,7 +67,7 @@ const EmojisPage = () => {
       <IconSidebar activeItem="Emojis" />
       
       {/* Config Panel */}
-      <div className="ml-16">
+      <div className="ml-20">
         <EmojisConfigPanel
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
