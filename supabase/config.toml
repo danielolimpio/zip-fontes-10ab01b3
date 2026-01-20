@@ -1,0 +1,4 @@
+project_id = "lkzvytjgamdywvrkkrgr"
+
+[functions.google-fonts]
+verify_jwt = false
