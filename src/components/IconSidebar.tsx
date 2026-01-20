@@ -1,4 +1,4 @@
-import { Type, Globe, Grid3X3, BookOpen, HelpCircle, Moon } from "lucide-react";
+import { Type, Grid3X3, HelpCircle, Moon, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 const menuItems = [
   { icon: Type, label: "Fonts", href: "/" },
   { icon: Grid3X3, label: "Icons", href: "/icons" },
+  { icon: Sparkles, label: "Insta Fonts", href: "/insta-fonts" },
   { icon: HelpCircle, label: "FAQ", href: "/faq" },
 ];
 
