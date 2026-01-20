@@ -1,13 +1,20 @@
 // Utility to convert emoji to Twemoji image URL
-// This is needed because Windows doesn't natively support flag emojis
+// Handles ZWJ sequences and variation selectors correctly
 
 export const emojiToTwemojiUrl = (emoji: string): string => {
-  const codePoints = [...emoji]
-    .map(char => char.codePointAt(0)?.toString(16))
-    .filter(Boolean)
-    .join('-');
+  const codePoints: string[] = [];
   
-  return `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/${codePoints}.png`;
+  for (const char of emoji) {
+    const codePoint = char.codePointAt(0);
+    if (codePoint === undefined) continue;
+    
+    // Skip variation selector (FE0F) - Twemoji URLs don't include it
+    if (codePoint === 0xFE0F) continue;
+    
+    codePoints.push(codePoint.toString(16));
+  }
+  
+  return `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/${codePoints.join('-')}.png`;
 };
 
 // Check if an emoji is likely a flag (regional indicators or special flags)
@@ -32,10 +39,4 @@ export const isFlagEmoji = (emoji: string): boolean => {
   }
   
   return false;
-};
-
-// A more robust approach - check if the emoji renders correctly
-// For now, we'll just use Twemoji for all emojis in the flags category
-export const shouldUseTwemoji = (emoji: string, categoryId: string): boolean => {
-  return categoryId === 'flags';
 };
