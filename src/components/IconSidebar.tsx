@@ -7,7 +7,7 @@ const menuItems = [
   { icon: Type, label: "Fonts", href: "/" },
   { icon: Grid3X3, label: "Icons", href: "/icons" },
   { icon: Smile, label: "Emojis", href: "/emojis" },
-  { icon: Instagram, label: "Insta Fonts", href: "/insta-fonts" },
+  { icon: Instagram, label: "Insta", href: "/insta-fonts", largeIcon: true },
   { icon: HelpCircle, label: "FAQ", href: "/faq" },
 ];
 
@@ -45,7 +45,7 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
-                  <item.icon className="w-5 h-5" />
+                  <item.icon className={'largeIcon' in item && item.largeIcon ? "w-6 h-6" : "w-5 h-5"} />
                   <span className="text-[10px] mt-0.5">{item.label}</span>
                 </button>
               </TooltipTrigger>
