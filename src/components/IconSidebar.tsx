@@ -46,7 +46,7 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-20 bg-background border-r border-border flex flex-col items-center py-6 z-50">
       {/* Logo */}
-      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-8 overflow-hidden">
+      <div className="w-12 h-12 flex items-center justify-center mb-8">
         <img src={faviconImg} alt="Zip Fontes" className="w-full h-full object-contain" />
       </div>
       
