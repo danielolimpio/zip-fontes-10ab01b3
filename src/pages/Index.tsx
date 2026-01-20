@@ -6,6 +6,7 @@ import { FontCard } from "@/components/FontCard";
 import { FontPagination } from "@/components/FontPagination";
 import { Button } from "@/components/ui/button";
 import { Grid, List, Info, X } from "lucide-react";
+import zipFontesLogo from "@/assets/zip-fontes-logo.png";
 
 // Mock data - fontes livres de direitos autorais
 const mockFonts = [
@@ -58,10 +59,9 @@ const Index = () => {
             <div className="flex items-center justify-between px-6 py-4">
               <div className="flex items-center gap-4">
                 {/* Logo */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold text-primary">⋮⋮</span>
-                  <span className="text-xl font-bold text-foreground">Zip Fontes</span>
-                </div>
+                <a href="/" className="flex items-center">
+                  <img src={zipFontesLogo} alt="Zip Fontes" className="h-8" />
+                </a>
                 
                 {/* Search */}
                 <div className="relative ml-6">
@@ -178,14 +178,22 @@ const Index = () => {
           </div>
           
           {/* Footer */}
-          <footer className="bg-muted/30 py-6 mt-auto">
+          <footer className="bg-muted/30 py-8 mt-auto">
             <div className="px-6 text-center">
-              <div className="flex items-center justify-center gap-4 mb-2">
-                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Ajuda e suporte</a>
+              {/* Logo centralizada */}
+              <div className="flex justify-center mb-6">
+                <a href="/">
+                  <img src={zipFontesLogo} alt="Zip Fontes" className="h-10" />
+                </a>
+              </div>
+              
+              {/* Políticas legais */}
+              <div className="flex items-center justify-center gap-4 mb-3">
+                <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Ajuda e suporte</a>
                 <span className="text-muted-foreground">|</span>
-                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Privacidade e cookies</a>
+                <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacidade e cookies</a>
                 <span className="text-muted-foreground">|</span>
-                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Contate-nos</a>
+                <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Contate-nos</a>
               </div>
               <p className="text-xs text-muted-foreground">
                 © 2006-2025 Zip Fontes. Todos os direitos reservados.
