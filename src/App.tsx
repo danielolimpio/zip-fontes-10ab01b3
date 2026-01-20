@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import IconsPage from "./pages/IconsPage";
 import EmojisPage from "./pages/EmojisPage";
 import InstaFontsPage from "./pages/InstaFontsPage";
+import ColorsPage from "./pages/ColorsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/icons" element={<IconsPage />} />
           <Route path="/emojis" element={<EmojisPage />} />
           <Route path="/insta-fonts" element={<InstaFontsPage />} />
+          <Route path="/colors" element={<ColorsPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

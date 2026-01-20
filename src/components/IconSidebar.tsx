@@ -1,4 +1,4 @@
-import { Type, Grid3X3, HelpCircle, Moon, Sun, Instagram, Smile } from "lucide-react";
+import { Type, Grid3X3, HelpCircle, Moon, Sun, Instagram, Smile, Palette } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
@@ -8,6 +8,7 @@ const menuItems = [
   { icon: Type, label: "Fonts", href: "/" },
   { icon: Grid3X3, label: "Icons", href: "/icons" },
   { icon: Smile, label: "Emojis", href: "/emojis" },
+  { icon: Palette, label: "Cores", href: "/colors", colorful: true },
   { icon: Instagram, label: "Insta", href: "/insta-fonts", largeIcon: true },
   { icon: HelpCircle, label: "FAQ", href: "/faq" },
 ];
@@ -63,7 +64,11 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
-                  <item.icon className={'largeIcon' in item && item.largeIcon ? "w-7 h-7" : "w-6 h-6"} />
+                  {'colorful' in item && item.colorful ? (
+                    <item.icon className="w-6 h-6" style={{ color: isActive(item) ? undefined : '#E91E63' }} />
+                  ) : (
+                    <item.icon className={'largeIcon' in item && item.largeIcon ? "w-7 h-7" : "w-6 h-6"} />
+                  )}
                   <span className="text-xs mt-1.5 font-medium">{item.label}</span>
                 </button>
               </TooltipTrigger>
