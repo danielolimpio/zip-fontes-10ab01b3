@@ -1,30 +1,33 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
-import { LeftSidebar } from "@/components/LeftSidebar";
+import { IconSidebar } from "@/components/IconSidebar";
+import { FilterPanel } from "@/components/FilterPanel";
 import { FontCard } from "@/components/FontCard";
-import { FilterBar } from "@/components/FilterBar";
 import { FontPagination } from "@/components/FontPagination";
 import { Button } from "@/components/ui/button";
+import { Grid, List, Info, X } from "lucide-react";
 
 // Mock data - fontes livres de direitos autorais
 const mockFonts = [
-  { id: 1, name: "Tradepar Script", category: "Script", author: "Ajith R", fontFamily: "cursive" },
-  { id: 2, name: "Tradepar Serif", category: "Serif", author: "João Silva", fontFamily: "serif" },
-  { id: 3, name: "Tradepar Sans", category: "Sans Serif", author: "Maria Santos", fontFamily: "system-ui" },
-  { id: 4, name: "Tradepar Display", category: "Display", author: "Pedro Costa", fontFamily: "fantasy" },
-  { id: 5, name: "Tradepar Mono", category: "Monospace", author: "Ana Lima", fontFamily: "monospace" },
-  { id: 6, name: "Tradepar Bold", category: "Sans Serif", author: "Carlos Rocha", fontFamily: "system-ui" },
-  { id: 7, name: "Tradepar Light", category: "Sans Serif", author: "Sofia Martins", fontFamily: "system-ui" },
-  { id: 8, name: "Tradepar Handwriting", category: "Handwriting", author: "Lucas Pinto", fontFamily: "cursive" },
-  { id: 9, name: "Tradepar Classic", category: "Serif", author: "Rita Ferreira", fontFamily: "serif" },
-  { id: 10, name: "Tradepar Modern", category: "Sans Serif", author: "Miguel Alves", fontFamily: "system-ui" },
+  { id: 1, name: "Google Sans Flex", category: "Variable (6 axes)", author: "Google", fontFamily: "system-ui" },
+  { id: 2, name: "Roboto", category: "Variable (3 axes)", author: "Christian Robertson, Paratype, Font Bureau", fontFamily: "sans-serif" },
+  { id: 3, name: "Rubik Storm", category: "1 style", author: "NaN, Luke Prowse", fontFamily: "fantasy" },
+  { id: 4, name: "Noto Sans Syriac", category: "Variable (1 axis)", author: "Google", fontFamily: "sans-serif" },
+  { id: 5, name: "Open Sans", category: "Variable (3 axes)", author: "Steve Matteson", fontFamily: "sans-serif" },
+  { id: 6, name: "Lato", category: "10 styles", author: "Łukasz Dziedzic", fontFamily: "sans-serif" },
+  { id: 7, name: "Montserrat", category: "Variable (2 axes)", author: "Julieta Ulanovsky", fontFamily: "sans-serif" },
+  { id: 8, name: "Oswald", category: "Variable (1 axis)", author: "Vernon Adams", fontFamily: "sans-serif" },
+  { id: 9, name: "Raleway", category: "Variable (2 axes)", author: "Matt McInerney", fontFamily: "sans-serif" },
+  { id: 10, name: "Poppins", category: "18 styles", author: "Indian Type Foundry", fontFamily: "sans-serif" },
 ];
 
 const Index = () => {
-  const [previewText, setPreviewText] = useState("TRADEPAR");
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [previewText, setPreviewText] = useState("TRADER");
+  const [fontSize, setFontSize] = useState(40);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [showFilters, setShowFilters] = useState(true);
 
   // Pagination
   const totalPages = Math.ceil(mockFonts.length / itemsPerPage);
@@ -33,68 +36,134 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <Header />
+      {/* Icon Sidebar (narrow left) */}
+      <IconSidebar />
       
-      {/* Layout: Espaço AdSense | Menu Lateral | Conteúdo | Espaço AdSense */}
-      <div className="flex min-h-screen">
-        {/* Espaço vazio para AdSense vertical esquerdo - cresce igualmente */}
-        <div className="flex-1"></div>
+      {/* Main Layout */}
+      <div className="ml-16 flex min-h-screen">
+        {/* Filter Panel */}
+        {showFilters && (
+          <FilterPanel
+            previewText={previewText}
+            onPreviewTextChange={setPreviewText}
+            fontSize={fontSize}
+            onFontSizeChange={setFontSize}
+          />
+        )}
         
-        {/* Container centralizado: Menu + Conteúdo */}
-        <div className="flex">
-          {/* Left Sidebar */}
-          <LeftSidebar />
-          
-          {/* Main Content Area */}
-          <main className="w-[900px] pt-[60px] min-h-screen">
-          <div className="px-8 py-8">
-            <div className="max-w-4xl mx-auto">
-              {/* Hero Section */}
-              <div className="mb-8">
-                <h1 className="text-[32px] font-bold text-primary mb-2">
-                  Explore a arte da tipografia.
-                </h1>
-                <p className="text-base text-gray-600 leading-relaxed text-justify">
-                  Descubra milhares de fontes gratuitas e de alta qualidade para seus projetos. 
-                  Todas as fontes são 100% livres de direitos autorais e podem ser usadas em 
-                  projetos pessoais e comerciais sem restrições.
-                </p>
-              </div>
-              
-              {/* Filter Bar */}
-              <FilterBar
-                viewMode={viewMode}
-                onViewModeChange={setViewMode}
-                searchText={previewText}
-                onSearchChange={setPreviewText}
-              />
-              
-              {/* Fonts Grid */}
-              <div className="space-y-6 mb-8">
-                {paginatedFonts.map((font) => (
-                  <FontCard
-                    key={font.id}
-                    name={font.name}
-                    category={font.category}
-                    author={font.author}
-                    previewText={previewText}
-                    fontFamily={font.fontFamily}
+        {/* Main Content Area - full width */}
+        <main className="flex-1 min-h-screen bg-white">
+          {/* Header dentro do conteúdo */}
+          <div className="sticky top-0 z-40 bg-white border-b border-border">
+            <div className="flex items-center justify-between px-6 py-4">
+              <div className="flex items-center gap-4">
+                {/* Logo */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xl font-bold text-primary">⋮⋮</span>
+                  <span className="text-xl font-bold text-foreground">Zip Fontes</span>
+                </div>
+                
+                {/* Search */}
+                <div className="relative ml-6">
+                  <input
+                    type="text"
+                    placeholder="Search fonts"
+                    className="w-[300px] px-4 py-2 pl-10 bg-muted rounded-full text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
-                ))}
+                  <svg className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
               </div>
               
-              {/* Recently Added Section */}
-              <div className="my-12">
-                <h2 className="text-2xl font-bold text-primary mb-2">
-                  Fontes adicionadas recentemente.
-                </h2>
-                <p className="text-base text-gray-600 mb-6">
-                  Confira as últimas adições à nossa coleção de fontes gratuitas.
-                </p>
+              {/* Right side */}
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-muted-foreground">Sort by</span>
+                <select className="text-sm font-medium bg-transparent border-0 focus:outline-none cursor-pointer">
+                  <option>Relevance</option>
+                  <option>Popularity</option>
+                  <option>Newest</option>
+                  <option>Name</option>
+                </select>
               </div>
+            </div>
+          </div>
+          
+          {/* Content */}
+          <div className="px-6 py-6">
+            {/* Filters Button */}
+            <div className="mb-6">
+              <Button 
+                variant={showFilters ? "default" : "outline"}
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+                className="gap-2"
+              >
+                {showFilters ? <X className="w-4 h-4" /> : null}
+                Filters
+              </Button>
+            </div>
+            
+            {/* Results info and view toggle */}
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-sm text-muted-foreground">
+                {mockFonts.length} of {mockFonts.length} families
+              </span>
               
-              {/* Pagination */}
+              <div className="flex items-center gap-4">
+                <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                  About these results
+                  <Info className="w-4 h-4" />
+                </button>
+                
+                <div className="flex items-center border border-border rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => setViewMode('grid')}
+                    className={`p-2 ${viewMode === 'grid' ? 'bg-muted' : 'hover:bg-muted/50'}`}
+                  >
+                    <Grid className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={`p-2 ${viewMode === 'list' ? 'bg-muted' : 'hover:bg-muted/50'}`}
+                  >
+                    <List className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            {/* Fonts List */}
+            <div className="space-y-0">
+              {paginatedFonts.map((font) => (
+                <div key={font.id} className="border-b border-border py-6">
+                  {/* Font info */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-medium text-primary hover:underline cursor-pointer">
+                      {font.name}
+                    </span>
+                    <span className="text-sm text-muted-foreground">{font.category}</span>
+                    <span className="text-muted-foreground">|</span>
+                    <span className="text-sm text-muted-foreground">{font.author}</span>
+                  </div>
+                  
+                  {/* Font preview */}
+                  <div 
+                    className="text-foreground"
+                    style={{ 
+                      fontFamily: font.fontFamily,
+                      fontSize: `${fontSize}px`,
+                      lineHeight: 1.2
+                    }}
+                  >
+                    {previewText || font.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Pagination */}
+            <div className="mt-8">
               <FontPagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -105,38 +174,25 @@ const Index = () => {
                   setCurrentPage(1);
                 }}
               />
-              
-              {/* All New Fonts Button */}
-              <div className="flex justify-center mt-8 mb-12">
-                <Button 
-                  className="bg-gradient-primary text-white font-bold text-base px-6 py-3 rounded-lg hover-scale shadow-sm"
-                >
-                  Todas as novas fontes
-                </Button>
-              </div>
             </div>
           </div>
           
           {/* Footer */}
-          <footer className="bg-gray-100 py-6">
-            <div className="max-w-4xl mx-auto px-8 text-center">
+          <footer className="bg-muted/30 py-6 mt-auto">
+            <div className="px-6 text-center">
               <div className="flex items-center justify-center gap-4 mb-2">
-                <a href="#" className="text-xs text-gray-600 hover:text-primary">Ajuda e suporte</a>
-                <span className="text-gray-400">|</span>
-                <a href="#" className="text-xs text-gray-600 hover:text-primary">Privacidade e cookies</a>
-                <span className="text-gray-400">|</span>
-                <a href="#" className="text-xs text-gray-600 hover:text-primary">Contate-nos</a>
+                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Ajuda e suporte</a>
+                <span className="text-muted-foreground">|</span>
+                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Privacidade e cookies</a>
+                <span className="text-muted-foreground">|</span>
+                <a href="#" className="text-xs text-muted-foreground hover:text-primary">Contate-nos</a>
               </div>
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-muted-foreground">
                 © 2006-2025 Zip Fontes. Todos os direitos reservados.
               </p>
             </div>
           </footer>
         </main>
-        </div>
-        
-        {/* Espaço vazio para AdSense vertical direito - cresce igualmente */}
-        <div className="flex-1"></div>
       </div>
     </div>
   );
