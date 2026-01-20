@@ -2,6 +2,7 @@ import { Type, Grid3X3, HelpCircle, Moon, Sun, Instagram, Smile } from "lucide-r
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import faviconImg from "@/assets/favicon.png";
 
 const menuItems = [
   { icon: Type, label: "Fonts", href: "/" },
@@ -45,8 +46,8 @@ export const IconSidebar = ({ activeItem }: IconSidebarProps) => {
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-20 bg-background border-r border-border flex flex-col items-center py-6 z-50">
       {/* Logo */}
-      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-2xl mb-8">
-        A
+      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-8 overflow-hidden">
+        <img src={faviconImg} alt="Zip Fontes" className="w-full h-full object-contain" />
       </div>
       
       <TooltipProvider>
