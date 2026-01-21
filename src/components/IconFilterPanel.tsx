@@ -26,6 +26,8 @@ interface IconFilterPanelProps {
   onCategoryChange: (value: string) => void;
   iconStyle: "outlined" | "filled";
   onIconStyleChange: (value: "outlined" | "filled") => void;
+  iconFill: boolean;
+  onIconFillChange: (value: boolean) => void;
   categories: string[];
 }
 
@@ -40,9 +42,10 @@ export const IconFilterPanel = ({
   onCategoryChange,
   iconStyle,
   onIconStyleChange,
+  iconFill,
+  onIconFillChange,
   categories,
 }: IconFilterPanelProps) => {
-  const [fill, setFill] = useState(false);
   const [styleOpen, setStyleOpen] = useState(true);
   const [categoryOpen, setCategoryOpen] = useState(true);
 
@@ -50,11 +53,11 @@ export const IconFilterPanel = ({
     onIconWeightChange(400);
     onIconGradeChange(0);
     onOpticalSizeChange(24);
-    setFill(false);
+    onIconFillChange(false);
   };
 
   return (
-    <aside className="w-[280px] min-w-[280px] border-r border-border bg-background h-screen overflow-y-auto sticky top-0">
+    <aside className="w-72 min-w-72 border-r border-border bg-background h-screen overflow-y-auto sticky top-0">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-2">
@@ -62,7 +65,7 @@ export const IconFilterPanel = ({
             className="w-4 h-4 text-muted-foreground cursor-pointer hover:text-foreground" 
             onClick={handleReset}
           />
-          <span className="text-sm text-muted-foreground">Reset all</span>
+          <span className="text-sm text-muted-foreground">Resetar tudo</span>
         </div>
         <X className="w-4 h-4 text-muted-foreground cursor-pointer hover:text-foreground" />
       </div>
@@ -74,26 +77,29 @@ export const IconFilterPanel = ({
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13" />
             </svg>
-            Customize
+            Personalizar
           </h3>
           
           {/* Fill Toggle */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
-              <span className="text-sm">Fill</span>
+              <span className="text-sm">Preenchimento</span>
               <Info className="w-3 h-3 text-muted-foreground" />
             </div>
             <Switch 
-              checked={fill}
-              onCheckedChange={setFill}
+              checked={iconFill}
+              onCheckedChange={onIconFillChange}
             />
           </div>
 
           {/* Weight Slider */}
           <div className="mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm">Weight</span>
-              <Info className="w-3 h-3 text-muted-foreground" />
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className="text-sm">Peso</span>
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </div>
+              <span className="text-xs text-muted-foreground font-mono">{iconWeight}</span>
             </div>
             <Slider
               value={[iconWeight]}
@@ -104,16 +110,19 @@ export const IconFilterPanel = ({
               className="my-4"
             />
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>100</span>
-              <span>700</span>
+              <span>100 (fino)</span>
+              <span>700 (grosso)</span>
             </div>
           </div>
 
           {/* Grade Slider */}
           <div className="mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm">Grade</span>
-              <Info className="w-3 h-3 text-muted-foreground" />
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className="text-sm">Intensidade</span>
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </div>
+              <span className="text-xs text-muted-foreground font-mono">{iconGrade}</span>
             </div>
             <Slider
               value={[iconGrade]}
@@ -124,34 +133,37 @@ export const IconFilterPanel = ({
               className="my-4"
             />
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>-25 (low)</span>
-              <span>200 (high emphasis)</span>
+              <span>-25 (baixa)</span>
+              <span>200 (alta)</span>
             </div>
           </div>
 
           {/* Optical Size Slider */}
           <div className="mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm">Optical Size</span>
-              <Info className="w-3 h-3 text-muted-foreground" />
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className="text-sm">Tamanho Óptico</span>
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </div>
+              <span className="text-xs text-muted-foreground font-mono">{opticalSize}px</span>
             </div>
             <Slider
               value={[opticalSize]}
               onValueChange={(value) => onOpticalSizeChange(value[0])}
-              min={20}
+              min={16}
               max={48}
               step={4}
               className="my-4"
             />
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>20px</span>
+              <span>16px</span>
               <span>48px</span>
             </div>
           </div>
         </div>
 
         <div className="border-t border-border pt-4">
-          <h3 className="text-sm font-medium mb-4">Filter</h3>
+          <h3 className="text-sm font-medium mb-4">Filtros</h3>
 
           {/* Style Section */}
           <Collapsible open={styleOpen} onOpenChange={setStyleOpen}>
@@ -160,18 +172,18 @@ export const IconFilterPanel = ({
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
-                <span className="text-sm">Style</span>
+                <span className="text-sm">Estilo</span>
               </div>
               <ChevronDown className={`w-4 h-4 transition-transform ${styleOpen ? 'rotate-180' : ''}`} />
             </CollapsibleTrigger>
             <CollapsibleContent className="space-y-2 pt-2">
-              <Select defaultValue="material-symbols">
+              <Select defaultValue="lucide">
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select style" />
+                  <SelectValue placeholder="Selecionar biblioteca" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="material-symbols">Material Symbols (new)</SelectItem>
-                  <SelectItem value="material-icons">Material Icons</SelectItem>
+                  <SelectItem value="lucide">Lucide Icons</SelectItem>
+                  <SelectItem value="material">Material Icons</SelectItem>
                 </SelectContent>
               </Select>
               <Select 
@@ -179,11 +191,11 @@ export const IconFilterPanel = ({
                 onValueChange={(value: "outlined" | "filled") => onIconStyleChange(value)}
               >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select variant" />
+                  <SelectValue placeholder="Selecionar variante" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="outlined">Outlined</SelectItem>
-                  <SelectItem value="filled">Filled</SelectItem>
+                  <SelectItem value="outlined">Contorno</SelectItem>
+                  <SelectItem value="filled">Preenchido</SelectItem>
                 </SelectContent>
               </Select>
             </CollapsibleContent>
@@ -199,7 +211,7 @@ export const IconFilterPanel = ({
                   <rect x="3" y="14" width="7" height="7" />
                   <rect x="14" y="14" width="7" height="7" />
                 </svg>
-                <span className="text-sm">Category</span>
+                <span className="text-sm">Categoria</span>
               </div>
               <ChevronDown className={`w-4 h-4 transition-transform ${categoryOpen ? 'rotate-180' : ''}`} />
             </CollapsibleTrigger>

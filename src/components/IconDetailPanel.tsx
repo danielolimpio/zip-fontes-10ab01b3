@@ -110,7 +110,7 @@ export const IconDetailPanel = ({
 
         {/* Size Control */}
         <div className="mb-4">
-          <label className="text-sm text-muted-foreground mb-2 block">Size</label>
+          <label className="text-sm text-muted-foreground mb-2 block">Tamanho</label>
           <div className="flex items-center gap-2">
             <Button 
               variant="outline" 
@@ -151,7 +151,7 @@ export const IconDetailPanel = ({
 
         {/* Color Control */}
         <div className="mb-6">
-          <label className="text-sm text-muted-foreground mb-2 block">Color</label>
+          <label className="text-sm text-muted-foreground mb-2 block">Cor</label>
           <div className="flex items-center gap-2">
             <input
               type="color"
@@ -173,7 +173,7 @@ export const IconDetailPanel = ({
           <p className="text-xs text-muted-foreground">
             {allKeywords.join(', ')}...
           </p>
-          <button className="text-xs text-primary hover:underline mt-1">Show more</button>
+          <button className="text-xs text-primary hover:underline mt-1">Ver mais</button>
         </div>
 
         {/* Download Buttons */}
@@ -214,15 +214,15 @@ export const IconDetailPanel = ({
         {/* Instructions */}
         <div className="space-y-4">
           <div>
-            <h4 className="text-sm font-medium mb-2">Instructions</h4>
+            <h4 className="text-sm font-medium mb-2">Instruções</h4>
             <p className="text-xs text-muted-foreground">
-              Download the icon in your preferred format (SVG or PNG) and use it in your project.
+              Baixe o ícone no formato de sua preferência (SVG ou PNG) e use em seu projeto.
             </p>
           </div>
 
           {activeTab === "web" && (
             <div>
-              <h4 className="text-sm font-medium mb-2">Usage</h4>
+              <h4 className="text-sm font-medium mb-2">Uso</h4>
               <div className="bg-muted p-3 rounded-md">
                 <code className="text-xs text-foreground break-all">
                   {`import { ${icon.name.replace(/\s+/g, '')} } from 'lucide-react';`}
@@ -235,7 +235,7 @@ export const IconDetailPanel = ({
             <div>
               <h4 className="text-sm font-medium mb-2">Android</h4>
               <p className="text-xs text-muted-foreground">
-                Place the SVG in your drawable folder or use Android Vector Drawable.
+                Coloque o SVG na pasta drawable ou use Android Vector Drawable.
               </p>
             </div>
           )}
@@ -244,7 +244,7 @@ export const IconDetailPanel = ({
             <div>
               <h4 className="text-sm font-medium mb-2">iOS/macOS</h4>
               <p className="text-xs text-muted-foreground">
-                Add the icon to your Asset Catalog as an Image Set.
+                Adicione o ícone ao Asset Catalog como Image Set.
               </p>
             </div>
           )}

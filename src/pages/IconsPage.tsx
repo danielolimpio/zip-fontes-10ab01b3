@@ -35,17 +35,17 @@ const getIconList = (): { name: string; Icon: LucideIcon }[] => {
 
 const allIcons = getIconList();
 
-// Categories
+// Categorias em português
 const categories = [
-  "All",
-  "UI Actions",
-  "Navigation",
-  "Media",
-  "Communication",
-  "Files",
-  "Charts",
-  "Devices",
-  "Weather",
+  "Todos",
+  "Ações de UI",
+  "Navegação",
+  "Mídia",
+  "Comunicação",
+  "Arquivos",
+  "Gráficos",
+  "Dispositivos",
+  "Clima",
   "Social",
 ];
 
@@ -58,11 +58,12 @@ const IconsPage = () => {
   const [iconWeight, setIconWeight] = useState(400);
   const [iconGrade, setIconGrade] = useState(0);
   const [opticalSize, setOpticalSize] = useState(24);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [iconStyle, setIconStyle] = useState<"outlined" | "filled">("outlined");
-  const [sortBy, setSortBy] = useState("Most popular");
+  const [iconFill, setIconFill] = useState(false);
+  const [sortBy, setSortBy] = useState("Mais populares");
 
-  // Filter icons based on search
+  // Filter icons based on search - aumentado para 500 ícones
   const filteredIcons = useMemo(() => {
     let icons = allIcons;
     
@@ -72,8 +73,14 @@ const IconsPage = () => {
       );
     }
     
-    return icons.slice(0, 200); // Limit for performance
+    return icons.slice(0, 500); // Aumentado para 500 ícones
   }, [searchQuery]);
+
+  // Calcular strokeWidth baseado no weight (100-700 -> 0.5-3)
+  const calculateStrokeWidth = () => {
+    const normalized = (iconWeight - 100) / 600;
+    return 0.5 + normalized * 2.5;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -95,6 +102,8 @@ const IconsPage = () => {
             onCategoryChange={setSelectedCategory}
             iconStyle={iconStyle}
             onIconStyleChange={setIconStyle}
+            iconFill={iconFill}
+            onIconFillChange={setIconFill}
             categories={categories}
           />
         )}
@@ -114,9 +123,9 @@ const IconsPage = () => {
                   onChange={(e) => setSortBy(e.target.value)}
                   className="text-sm font-medium bg-transparent border-0 focus:outline-none cursor-pointer"
                 >
-                  <option>Mais populares</option>
-                  <option>Nome</option>
-                  <option>Mais recentes</option>
+                  <option value="Mais populares">Mais populares</option>
+                  <option value="Nome">Nome</option>
+                  <option value="Mais recentes">Mais recentes</option>
                 </select>
               </>
             }
@@ -179,25 +188,27 @@ const IconsPage = () => {
             
             {/* Category Label */}
             <h2 className="text-sm font-medium text-muted-foreground mb-4">
-              {selectedCategory === "All" ? "Todos os ícones" : selectedCategory} 
+              {selectedCategory === "Todos" ? "Todos os ícones" : selectedCategory} 
               <span className="ml-2 text-xs">({filteredIcons.length} ícones)</span>
             </h2>
             
-            {/* Icons Grid */}
-            <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-1">
+            {/* Icons Grid - grid mais denso para mais ícones */}
+            <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-14 2xl:grid-cols-16 gap-1">
               {filteredIcons.map((icon, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedIcon(icon)}
-                  className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all hover:bg-muted group ${
+                  className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all hover:bg-muted group ${
                     selectedIcon?.name === icon.name ? 'bg-primary/10 ring-2 ring-primary' : ''
                   }`}
                 >
                   <icon.Icon 
-                    className="w-6 h-6 mb-2 text-foreground" 
-                    strokeWidth={iconStyle === "filled" ? 2.5 : 1.5}
+                    size={opticalSize}
+                    className="mb-1 text-foreground" 
+                    strokeWidth={calculateStrokeWidth()}
+                    fill={iconFill ? "currentColor" : "none"}
                   />
-                  <span className="text-[10px] text-muted-foreground text-center leading-tight line-clamp-2 group-hover:text-foreground">
+                  <span className="text-[9px] text-muted-foreground text-center leading-tight line-clamp-1 group-hover:text-foreground max-w-full truncate">
                     {icon.name}
                   </span>
                 </button>
