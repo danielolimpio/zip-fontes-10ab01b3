@@ -1,9 +1,11 @@
 import { useState, useMemo } from "react";
-import { Copy, Check, Sparkles, Info, Heart } from "lucide-react";
+import { Copy, Check, Sparkles, Info, Heart, X } from "lucide-react";
 import { IconSidebar } from "@/components/IconSidebar";
 import { InstaFontsConfigPanel } from "@/components/InstaFontsConfigPanel";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
+import { StatsCards } from "@/components/StatsCards";
+import { getStatsData } from "@/lib/statsData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { fontStyles } from "@/lib/unicodeFonts";
@@ -14,6 +16,9 @@ const InstaFontsPage = () => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showFilters, setShowFilters] = useState(true);
+
+  const stats = useMemo(() => getStatsData(), []);
 
   const filteredStyles = useMemo(() => {
     let styles = fontStyles;
@@ -65,14 +70,16 @@ const InstaFontsPage = () => {
       {/* Main Layout */}
       <div className="ml-20 flex min-h-screen">
         {/* Config Panel - w-72 padronizado */}
-        <InstaFontsConfigPanel
-          inputText={inputText}
-          onInputTextChange={setInputText}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
-        />
+        {showFilters && (
+          <InstaFontsConfigPanel
+            inputText={inputText}
+            onInputTextChange={setInputText}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            searchQuery={searchQuery}
+            onSearchQueryChange={setSearchQuery}
+          />
+        )}
         
         {/* Main Content Area */}
         <main className="flex-1 min-h-screen bg-background flex flex-col">
@@ -91,6 +98,22 @@ const InstaFontsPage = () => {
           
           {/* Content */}
           <div className="px-6 py-6 flex-1">
+            {/* Filters Button */}
+            <div className="mb-6">
+              <Button 
+                variant={showFilters ? "default" : "outline"}
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+                className="gap-2"
+              >
+                {showFilters ? <X className="w-4 h-4" /> : null}
+                Filtros
+              </Button>
+            </div>
+
+            {/* Stats Cards */}
+            <StatsCards stats={stats} />
+
             {/* Results info and actions */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">

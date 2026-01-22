@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { IconSidebar } from "@/components/IconSidebar";
 import { FilterPanel } from "@/components/FilterPanel";
 import { FontPagination } from "@/components/FontPagination";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
+import { StatsCards } from "@/components/StatsCards";
+import { getStatsData } from "@/lib/statsData";
 import { Button } from "@/components/ui/button";
 import { Grid, List, Info, X, Loader2 } from "lucide-react";
 import { useGoogleFonts } from "@/hooks/useGoogleFonts";
@@ -19,6 +21,8 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sortBy, setSortBy] = useState<'popularity' | 'alpha' | 'date' | 'trending'>('popularity');
   const [loadedFonts, setLoadedFonts] = useState<Set<string>>(new Set());
+
+  const stats = useMemo(() => getStatsData(), []);
 
   // Fetch fonts from Google Fonts API
   const { data, isLoading, error } = useGoogleFonts({
@@ -106,6 +110,9 @@ const Index = () => {
                 Filtros
               </Button>
             </div>
+
+            {/* Stats Cards */}
+            <StatsCards stats={stats} />
             
             {/* Results info and view toggle */}
             <div className="flex items-center justify-between mb-6">

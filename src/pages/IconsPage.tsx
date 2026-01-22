@@ -4,13 +4,104 @@ import { IconFilterPanel } from "@/components/IconFilterPanel";
 import { IconDetailPanel } from "@/components/IconDetailPanel";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
+import { StatsCards } from "@/components/StatsCards";
+import { getStatsData } from "@/lib/statsData";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-// Get all available icons from lucide-react - método mais robusto
-const getIconList = (): { name: string; Icon: LucideIcon }[] => {
+// Categorias de ícones com mapeamento de palavras-chave
+const iconCategories: { name: string; keywords: string[]; icon: string }[] = [
+  { 
+    name: "Ações de UI", 
+    icon: "⚡",
+    keywords: ["plus", "minus", "check", "x", "edit", "delete", "add", "remove", "copy", "paste", "cut", "undo", "redo", "save", "close", "open", "expand", "collapse", "zoom", "refresh", "rotate", "flip", "move", "drag", "drop", "select", "click", "tap", "toggle", "switch", "button", "trash", "pencil", "eraser"]
+  },
+  { 
+    name: "Navegação", 
+    icon: "🧭",
+    keywords: ["arrow", "chevron", "menu", "home", "back", "forward", "up", "down", "left", "right", "navigation", "compass", "map", "location", "pin", "route", "direction", "path", "corner", "external", "link", "log", "sign", "door"]
+  },
+  { 
+    name: "Mídia", 
+    icon: "🎬",
+    keywords: ["play", "pause", "stop", "record", "video", "audio", "music", "camera", "image", "photo", "picture", "gallery", "album", "film", "movie", "tv", "screen", "volume", "speaker", "mic", "headphone", "radio", "podcast", "youtube", "spotify"]
+  },
+  { 
+    name: "Comunicação", 
+    icon: "💬",
+    keywords: ["mail", "message", "chat", "comment", "phone", "call", "contact", "send", "inbox", "outbox", "reply", "forward", "share", "bell", "notification", "alert", "megaphone", "announce", "at", "hash"]
+  },
+  { 
+    name: "Arquivos", 
+    icon: "📁",
+    keywords: ["file", "folder", "document", "archive", "zip", "download", "upload", "cloud", "storage", "drive", "disk", "paper", "clipboard", "attachment", "link", "save", "export", "import"]
+  },
+  { 
+    name: "Gráficos", 
+    icon: "📊",
+    keywords: ["chart", "graph", "bar", "line", "pie", "analytics", "stats", "trending", "activity", "pulse", "signal", "data", "report", "percent", "gauge"]
+  },
+  { 
+    name: "Dispositivos", 
+    icon: "💻",
+    keywords: ["laptop", "computer", "desktop", "mobile", "tablet", "phone", "watch", "printer", "keyboard", "mouse", "monitor", "display", "cpu", "server", "hardware", "usb", "bluetooth", "wifi", "battery", "power", "plug"]
+  },
+  { 
+    name: "Clima", 
+    icon: "☀️",
+    keywords: ["sun", "moon", "cloud", "rain", "snow", "wind", "storm", "thunder", "fog", "temperature", "thermometer", "weather", "umbrella", "droplet", "wave", "sunrise", "sunset"]
+  },
+  { 
+    name: "Social", 
+    icon: "👥",
+    keywords: ["user", "users", "group", "team", "people", "person", "profile", "avatar", "account", "heart", "like", "star", "bookmark", "follow", "friend", "community", "thumb"]
+  },
+  { 
+    name: "E-commerce", 
+    icon: "🛒",
+    keywords: ["cart", "shop", "store", "bag", "package", "box", "gift", "credit", "wallet", "money", "dollar", "coin", "receipt", "tag", "price", "sale", "percent", "truck", "shipping"]
+  },
+  { 
+    name: "Segurança", 
+    icon: "🔒",
+    keywords: ["lock", "unlock", "key", "shield", "security", "eye", "hide", "show", "password", "fingerprint", "scan", "verify", "check", "alert", "warning"]
+  },
+  { 
+    name: "Ferramentas", 
+    icon: "🔧",
+    keywords: ["tool", "wrench", "hammer", "screwdriver", "settings", "gear", "cog", "config", "option", "preference", "filter", "sort", "adjust", "tune", "calibrate"]
+  },
+  { 
+    name: "Texto", 
+    icon: "📝",
+    keywords: ["text", "font", "type", "bold", "italic", "underline", "strike", "align", "list", "quote", "heading", "paragraph", "format", "edit", "write", "pen", "pencil", "highlight"]
+  },
+  { 
+    name: "Formas", 
+    icon: "⬡",
+    keywords: ["circle", "square", "triangle", "rectangle", "diamond", "star", "heart", "hexagon", "octagon", "shape", "box", "frame", "grid", "layout"]
+  },
+  { 
+    name: "Tempo", 
+    icon: "⏰",
+    keywords: ["clock", "time", "timer", "watch", "calendar", "date", "schedule", "alarm", "hour", "minute", "history", "past", "future"]
+  },
+  { 
+    name: "Casa", 
+    icon: "🏠",
+    keywords: ["home", "house", "building", "door", "window", "bed", "sofa", "lamp", "light", "bulb", "fan", "air", "heater", "refrigerator", "microwave", "oven", "bath", "shower", "toilet", "sink", "faucet", "plug", "outlet"]
+  },
+  { 
+    name: "Outros", 
+    icon: "📦",
+    keywords: []
+  }
+];
+
+// Get all available icons from lucide-react
+const getIconList = (): { name: string; Icon: LucideIcon; originalName: string }[] => {
   const excludeList = new Set([
     'createLucideIcon',
     'default',
@@ -21,20 +112,17 @@ const getIconList = (): { name: string; Icon: LucideIcon }[] => {
     'Icon',
   ]);
   
-  const iconList: { name: string; Icon: LucideIcon }[] = [];
+  const iconList: { name: string; Icon: LucideIcon; originalName: string }[] = [];
   
   for (const [name, component] of Object.entries(LucideIcons)) {
-    // Pular itens da lista de exclusão
     if (excludeList.has(name)) continue;
-    
-    // Verificar se é um componente React válido (começa com letra maiúscula e é uma função ou objeto com $$typeof)
     if (!/^[A-Z]/.test(name)) continue;
     
-    // Verificar se é um componente válido
     if (typeof component === 'function' || 
         (typeof component === 'object' && component !== null && '$$typeof' in component)) {
       iconList.push({
         name: name.replace(/([A-Z])/g, ' $1').trim(),
+        originalName: name,
         Icon: component as LucideIcon,
       });
     }
@@ -44,7 +132,7 @@ const getIconList = (): { name: string; Icon: LucideIcon }[] => {
 };
 
 // Inicializar lista de ícones
-let allIcons: { name: string; Icon: LucideIcon }[] = [];
+let allIcons: { name: string; Icon: LucideIcon; originalName: string }[] = [];
 try {
   allIcons = getIconList();
   console.log(`Loaded ${allIcons.length} icons`);
@@ -53,8 +141,8 @@ try {
   allIcons = [];
 }
 
-// Categorias em português
-const categories = [
+// Categorias em português para o filtro lateral
+const filterCategories = [
   "Todos",
   "Ações de UI",
   "Navegação",
@@ -65,6 +153,13 @@ const categories = [
   "Dispositivos",
   "Clima",
   "Social",
+  "E-commerce",
+  "Segurança",
+  "Ferramentas",
+  "Texto",
+  "Formas",
+  "Tempo",
+  "Casa",
 ];
 
 const IconsPage = () => {
@@ -81,39 +176,59 @@ const IconsPage = () => {
   const [iconFill, setIconFill] = useState(false);
   const [sortBy, setSortBy] = useState("Mais populares");
 
-  // Filter icons based on search - TODOS os ícones disponíveis (1500+)
-  const filteredIcons = useMemo(() => {
+  const stats = useMemo(() => getStatsData(), []);
+
+  // Função para categorizar um ícone
+  const categorizeIcon = (iconName: string): string => {
+    const lowerName = iconName.toLowerCase();
+    
+    for (const category of iconCategories) {
+      if (category.keywords.length === 0) continue; // Pula "Outros"
+      if (category.keywords.some(keyword => lowerName.includes(keyword.toLowerCase()))) {
+        return category.name;
+      }
+    }
+    
+    return "Outros";
+  };
+
+  // Filtrar e organizar ícones por seção
+  const { filteredIcons, iconsByCategory } = useMemo(() => {
     let icons = allIcons;
     
+    // Filtrar por busca
     if (searchQuery) {
       icons = icons.filter(icon => 
         icon.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
-    // Filtrar por categoria
+    // Se uma categoria específica foi selecionada
     if (selectedCategory !== "Todos") {
-      const categoryKeywords: Record<string, string[]> = {
-        "Ações de UI": ["plus", "minus", "check", "x", "edit", "delete", "add", "remove", "copy", "paste", "cut", "undo", "redo", "save", "close", "open", "expand", "collapse", "zoom", "refresh", "rotate", "flip", "move", "drag", "drop", "select", "click", "tap", "toggle", "switch", "button"],
-        "Navegação": ["arrow", "chevron", "menu", "home", "back", "forward", "up", "down", "left", "right", "navigation", "compass", "map", "location", "pin", "route", "direction", "path", "corner", "move"],
-        "Mídia": ["play", "pause", "stop", "record", "video", "audio", "music", "camera", "image", "photo", "picture", "gallery", "album", "film", "movie", "tv", "screen", "volume", "speaker", "mic", "headphone", "radio", "podcast"],
-        "Comunicação": ["mail", "message", "chat", "comment", "phone", "call", "contact", "send", "inbox", "outbox", "reply", "forward", "share", "bell", "notification", "alert", "megaphone", "announce"],
-        "Arquivos": ["file", "folder", "document", "archive", "zip", "download", "upload", "cloud", "storage", "drive", "disk", "paper", "clipboard", "attachment", "link"],
-        "Gráficos": ["chart", "graph", "bar", "line", "pie", "analytics", "stats", "trending", "activity", "pulse", "signal", "data", "report"],
-        "Dispositivos": ["laptop", "computer", "desktop", "mobile", "tablet", "phone", "watch", "printer", "keyboard", "mouse", "monitor", "display", "cpu", "server", "hardware", "usb", "bluetooth", "wifi"],
-        "Clima": ["sun", "moon", "cloud", "rain", "snow", "wind", "storm", "thunder", "fog", "temperature", "thermometer", "weather", "umbrella", "droplet"],
-        "Social": ["user", "users", "group", "team", "people", "person", "profile", "avatar", "account", "heart", "like", "star", "bookmark", "follow", "friend", "community"],
-      };
+      const category = iconCategories.find(c => c.name === selectedCategory);
+      if (category && category.keywords.length > 0) {
+        icons = icons.filter(icon => 
+          category.keywords.some(keyword => 
+            icon.name.toLowerCase().includes(keyword.toLowerCase())
+          )
+        );
+      }
+    }
 
-      const keywords = categoryKeywords[selectedCategory] || [];
-      icons = icons.filter(icon => 
-        keywords.some(keyword => 
-          icon.name.toLowerCase().includes(keyword.toLowerCase())
-        )
-      );
+    // Agrupar por categoria (apenas quando "Todos" está selecionado)
+    const byCategory: Record<string, typeof icons> = {};
+    
+    if (selectedCategory === "Todos") {
+      icons.forEach(icon => {
+        const cat = categorizeIcon(icon.name);
+        if (!byCategory[cat]) {
+          byCategory[cat] = [];
+        }
+        byCategory[cat].push(icon);
+      });
     }
     
-    return icons; // Retornar TODOS os ícones filtrados
+    return { filteredIcons: icons, iconsByCategory: byCategory };
   }, [searchQuery, selectedCategory]);
 
   // Calcular strokeWidth baseado no weight (100-700 -> 0.5-3)
@@ -121,6 +236,31 @@ const IconsPage = () => {
     const normalized = (iconWeight - 100) / 600;
     return 0.5 + normalized * 2.5;
   };
+
+  // Renderizar grid de ícones
+  const renderIconGrid = (icons: typeof allIcons) => (
+    <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-14 2xl:grid-cols-16 gap-1">
+      {icons.map((icon, index) => (
+        <button
+          key={index}
+          onClick={() => setSelectedIcon(icon)}
+          className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all hover:bg-muted group ${
+            selectedIcon?.name === icon.name ? 'bg-primary/10 ring-2 ring-primary' : ''
+          }`}
+        >
+          <icon.Icon 
+            size={opticalSize}
+            className="mb-1 text-foreground" 
+            strokeWidth={calculateStrokeWidth()}
+            fill={iconFill ? "currentColor" : "none"}
+          />
+          <span className="text-[9px] text-muted-foreground text-center leading-tight line-clamp-1 group-hover:text-foreground max-w-full truncate">
+            {icon.name}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -144,7 +284,7 @@ const IconsPage = () => {
             onIconStyleChange={setIconStyle}
             iconFill={iconFill}
             onIconFillChange={setIconFill}
-            categories={categories}
+            categories={filterCategories}
           />
         )}
         
@@ -186,45 +326,8 @@ const IconsPage = () => {
               </Button>
             </div>
             
-            {/* Info Cards */}
-            <div className="flex gap-4 mb-6 overflow-x-auto pb-2">
-              <div className="flex items-center gap-3 p-4 border border-border rounded-lg min-w-[200px] hover:bg-muted/50 cursor-pointer">
-                <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
-                  <LucideIcons.BookOpen className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Guia de ícones</p>
-                  <p className="text-xs text-muted-foreground">Melhores práticas</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-4 border border-border rounded-lg min-w-[200px] hover:bg-muted/50 cursor-pointer">
-                <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
-                  <LucideIcons.Figma className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Plugin Figma</p>
-                  <p className="text-xs text-muted-foreground">Use no Figma</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-4 border border-border rounded-lg min-w-[200px] hover:bg-muted/50 cursor-pointer">
-                <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
-                  <LucideIcons.Github className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Repositório GitHub</p>
-                  <p className="text-xs text-muted-foreground">Código fonte</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-4 border border-border rounded-lg min-w-[200px] hover:bg-muted/50 cursor-pointer">
-                <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
-                  <LucideIcons.FileText className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Licença Apache</p>
-                  <p className="text-xs text-muted-foreground">Uso comercial livre</p>
-                </div>
-              </div>
-            </div>
+            {/* Stats Cards */}
+            <StatsCards stats={stats} />
             
             {/* Category Label */}
             <h2 className="text-sm font-medium text-muted-foreground mb-4">
@@ -232,28 +335,32 @@ const IconsPage = () => {
               <span className="ml-2 text-xs">({filteredIcons.length} ícones)</span>
             </h2>
             
-            {/* Icons Grid - grid mais denso para mais ícones */}
-            <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-14 2xl:grid-cols-16 gap-1">
-              {filteredIcons.map((icon, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedIcon(icon)}
-                  className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all hover:bg-muted group ${
-                    selectedIcon?.name === icon.name ? 'bg-primary/10 ring-2 ring-primary' : ''
-                  }`}
-                >
-                  <icon.Icon 
-                    size={opticalSize}
-                    className="mb-1 text-foreground" 
-                    strokeWidth={calculateStrokeWidth()}
-                    fill={iconFill ? "currentColor" : "none"}
-                  />
-                  <span className="text-[9px] text-muted-foreground text-center leading-tight line-clamp-1 group-hover:text-foreground max-w-full truncate">
-                    {icon.name}
-                  </span>
-                </button>
-              ))}
-            </div>
+            {/* Icons organized by sections when "Todos" is selected */}
+            {selectedCategory === "Todos" ? (
+              <div className="space-y-8">
+                {iconCategories
+                  .filter(cat => iconsByCategory[cat.name]?.length > 0)
+                  .map(category => (
+                    <section key={category.name} className="bg-background">
+                      {/* Section Header */}
+                      <div className="flex items-center gap-2 mb-4 pb-2 border-b border-border">
+                        <span className="text-xl">{category.icon}</span>
+                        <h3 className="text-base font-semibold text-foreground">{category.name}</h3>
+                        <span className="text-xs text-muted-foreground">
+                          ({iconsByCategory[category.name]?.length || 0} ícones)
+                        </span>
+                      </div>
+                      
+                      {/* Icons Grid */}
+                      {renderIconGrid(iconsByCategory[category.name] || [])}
+                    </section>
+                  ))
+                }
+              </div>
+            ) : (
+              /* Single grid when specific category is selected */
+              renderIconGrid(filteredIcons)
+            )}
           </div>
           
           {/* Footer padronizado */}

@@ -3,7 +3,10 @@ import { IconSidebar } from "@/components/IconSidebar";
 import { EmojisConfigPanel } from "@/components/EmojisConfigPanel";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
-import { Copy, Check } from "lucide-react";
+import { StatsCards } from "@/components/StatsCards";
+import { getStatsData } from "@/lib/statsData";
+import { Button } from "@/components/ui/button";
+import { Copy, Check, X } from "lucide-react";
 import { emojiCategories } from "@/lib/emojiData";
 import { emojiToTwemojiUrl } from "@/lib/emojiUtils";
 import { getEmojiName } from "@/lib/emojiNames";
@@ -16,7 +19,10 @@ const EmojisPage = () => {
   const [showLabels, setShowLabels] = useState(false);
   const [compactMode, setCompactMode] = useState(false);
   const [copiedEmoji, setCopiedEmoji] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(true);
   const { toast } = useToast();
+
+  const stats = useMemo(() => getStatsData(), []);
 
   const filteredCategories = useMemo(() => {
     let categories = emojiCategories;
@@ -67,18 +73,20 @@ const EmojisPage = () => {
       {/* Main Layout */}
       <div className="ml-20 flex min-h-screen">
         {/* Config Panel - w-72 padronizado */}
-        <EmojisConfigPanel
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          emojiSize={emojiSize}
-          onEmojiSizeChange={setEmojiSize}
-          showLabels={showLabels}
-          onShowLabelsChange={setShowLabels}
-          compactMode={compactMode}
-          onCompactModeChange={setCompactMode}
-        />
+        {showFilters && (
+          <EmojisConfigPanel
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            emojiSize={emojiSize}
+            onEmojiSizeChange={setEmojiSize}
+            showLabels={showLabels}
+            onShowLabelsChange={setShowLabels}
+            compactMode={compactMode}
+            onCompactModeChange={setCompactMode}
+          />
+        )}
 
         {/* Main Content */}
         <main className="flex-1 min-h-screen bg-background flex flex-col">
@@ -96,6 +104,22 @@ const EmojisPage = () => {
 
           {/* Content */}
           <div className="flex-1 p-6 overflow-y-auto">
+            {/* Filters Button */}
+            <div className="mb-6">
+              <Button 
+                variant={showFilters ? "default" : "outline"}
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+                className="gap-2"
+              >
+                {showFilters ? <X className="w-4 h-4" /> : null}
+                Filtros
+              </Button>
+            </div>
+
+            {/* Stats Cards */}
+            <StatsCards stats={stats} />
+
             <div className="max-w-6xl mx-auto space-y-8">
               {filteredCategories.map((category) => (
                 <section key={category.id} className="bg-background rounded-xl border border-border overflow-hidden">

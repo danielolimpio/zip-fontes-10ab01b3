@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { IconSidebar } from "@/components/IconSidebar";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
-import { Check, Copy } from "lucide-react";
+import { StatsCards } from "@/components/StatsCards";
+import { getStatsData } from "@/lib/statsData";
+import { Button } from "@/components/ui/button";
+import { Check, Copy, X } from "lucide-react";
 import { toast } from "sonner";
 
 // Paletas de cores organizadas
@@ -297,6 +300,9 @@ const colorPalettes = [
 const ColorsPage = () => {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showFilters, setShowFilters] = useState(true);
+
+  const stats = useMemo(() => getStatsData(), []);
 
   const copyToClipboard = (hex: string) => {
     navigator.clipboard.writeText(hex);
@@ -321,42 +327,44 @@ const ColorsPage = () => {
       {/* Main Layout */}
       <div className="ml-20 flex min-h-screen">
         {/* Filter/Config Panel - w-72 padronizado */}
-        <aside className="w-72 border-r border-border bg-background p-6 flex-shrink-0">
-          <h2 className="text-sm font-semibold text-foreground mb-4">Configurações</h2>
-          
-          {/* Search dentro do painel */}
-          <div className="mb-6">
-            <label className="text-xs text-muted-foreground mb-2 block">Buscar cor</label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Nome ou código hex..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-10 bg-muted rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-              <svg className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+        {showFilters && (
+          <aside className="w-72 border-r border-border bg-background p-6 flex-shrink-0">
+            <h2 className="text-sm font-semibold text-foreground mb-4">Configurações</h2>
+            
+            {/* Search dentro do painel */}
+            <div className="mb-6">
+              <label className="text-xs text-muted-foreground mb-2 block">Buscar cor</label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Nome ou código hex..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-4 py-2 pl-10 bg-muted rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
+                <svg className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
             </div>
-          </div>
-          
-          {/* Info */}
-          <div className="bg-muted/50 rounded-lg p-4">
-            <p className="text-xs text-muted-foreground mb-2">
-              <strong className="text-foreground">{colorPalettes.length}</strong> paletas disponíveis
-            </p>
-            <p className="text-xs text-muted-foreground">
-              <strong className="text-foreground">{colorPalettes.reduce((acc, p) => acc + p.colors.length, 0)}</strong> cores no total
-            </p>
-          </div>
-          
-          <div className="mt-6 p-4 bg-primary/5 rounded-lg">
-            <p className="text-xs text-muted-foreground">
-              💡 Clique em qualquer cor para copiar o código hexadecimal
-            </p>
-          </div>
-        </aside>
+            
+            {/* Info */}
+            <div className="bg-muted/50 rounded-lg p-4">
+              <p className="text-xs text-muted-foreground mb-2">
+                <strong className="text-foreground">{colorPalettes.length}</strong> paletas disponíveis
+              </p>
+              <p className="text-xs text-muted-foreground">
+                <strong className="text-foreground">{colorPalettes.reduce((acc, p) => acc + p.colors.length, 0)}</strong> cores no total
+              </p>
+            </div>
+            
+            <div className="mt-6 p-4 bg-primary/5 rounded-lg">
+              <p className="text-xs text-muted-foreground">
+                💡 Clique em qualquer cor para copiar o código hexadecimal
+              </p>
+            </div>
+          </aside>
+        )}
         
         {/* Main Content Area */}
         <main className="flex-1 min-h-screen bg-background flex flex-col">
@@ -374,6 +382,22 @@ const ColorsPage = () => {
           
           {/* Color Palettes Grid */}
           <div className="p-6 flex-1">
+            {/* Filters Button */}
+            <div className="mb-6">
+              <Button 
+                variant={showFilters ? "default" : "outline"}
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+                className="gap-2"
+              >
+                {showFilters ? <X className="w-4 h-4" /> : null}
+                Filtros
+              </Button>
+            </div>
+
+            {/* Stats Cards */}
+            <StatsCards stats={stats} />
+
             <div className="grid gap-8">
               {filteredPalettes.map((palette) => (
                 <div key={palette.name} className="space-y-3">
@@ -398,30 +422,18 @@ const ColorsPage = () => {
                           )}
                         </div>
                         
-                        {/* Color info on hover */}
-                        <div className={`absolute bottom-0 left-0 right-0 p-1.5 text-center opacity-0 group-hover:opacity-100 transition-opacity ${
-                          color.textDark ? 'text-gray-800' : 'text-white'
+                        {/* Hex code tooltip */}
+                        <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 text-[8px] font-mono opacity-0 group-hover:opacity-100 transition-opacity ${
+                          color.textDark ? 'text-gray-700' : 'text-white'
                         }`}>
-                          <p className="text-[8px] font-medium leading-tight">{color.hex}</p>
-                        </div>
+                          {color.hex}
+                        </span>
                       </button>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
-            
-            {filteredPalettes.length === 0 && (
-              <div className="text-center py-16">
-                <span className="text-6xl mb-4 block">🎨</span>
-                <h3 className="text-lg font-medium text-foreground mb-2">
-                  Nenhuma paleta encontrada
-                </h3>
-                <p className="text-muted-foreground">
-                  Tente buscar por outro nome ou código hex.
-                </p>
-              </div>
-            )}
           </div>
           
           {/* Footer padronizado */}
