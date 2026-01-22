@@ -9,31 +9,49 @@ import { X } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-// Get all available icons from lucide-react
+// Get all available icons from lucide-react - método mais robusto
 const getIconList = (): { name: string; Icon: LucideIcon }[] => {
-  const excludeList = [
+  const excludeList = new Set([
     'createLucideIcon',
     'default',
     'icons',
     'createElement',
     'LucideIcon',
     'dynamicIconImports',
-  ];
+    'Icon',
+  ]);
   
-  return Object.entries(LucideIcons)
-    .filter(([name, component]) => {
-      return !excludeList.includes(name) && 
-             typeof component === 'object' && 
-             component !== null &&
-             '$$typeof' in component;
-    })
-    .map(([name, Icon]) => ({
-      name: name.replace(/([A-Z])/g, ' $1').trim(),
-      Icon: Icon as LucideIcon,
-    }));
+  const iconList: { name: string; Icon: LucideIcon }[] = [];
+  
+  for (const [name, component] of Object.entries(LucideIcons)) {
+    // Pular itens da lista de exclusão
+    if (excludeList.has(name)) continue;
+    
+    // Verificar se é um componente React válido (começa com letra maiúscula e é uma função ou objeto com $$typeof)
+    if (!/^[A-Z]/.test(name)) continue;
+    
+    // Verificar se é um componente válido
+    if (typeof component === 'function' || 
+        (typeof component === 'object' && component !== null && '$$typeof' in component)) {
+      iconList.push({
+        name: name.replace(/([A-Z])/g, ' $1').trim(),
+        Icon: component as LucideIcon,
+      });
+    }
+  }
+  
+  return iconList;
 };
 
-const allIcons = getIconList();
+// Inicializar lista de ícones
+let allIcons: { name: string; Icon: LucideIcon }[] = [];
+try {
+  allIcons = getIconList();
+  console.log(`Loaded ${allIcons.length} icons`);
+} catch (error) {
+  console.error('Error loading icons:', error);
+  allIcons = [];
+}
 
 // Categorias em português
 const categories = [
