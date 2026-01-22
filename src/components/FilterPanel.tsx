@@ -194,7 +194,7 @@ export const FilterPanel = ({
   };
 
   return (
-    <aside className="w-[280px] border-r border-border bg-background overflow-y-auto h-[calc(100vh-60px)] flex-shrink-0">
+    <aside className="w-[280px] min-w-[280px] border-r border-border bg-background overflow-y-auto h-[calc(100vh-60px)] flex-shrink-0">
       <div className="p-4">
         {/* Reset & Close */}
         <div className="flex items-center gap-2 mb-6">
@@ -203,19 +203,19 @@ export const FilterPanel = ({
             className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
           >
             <RotateCcw className="w-4 h-4" />
-            Reset all
+            Resetar tudo
           </button>
           <X className="w-4 h-4 text-muted-foreground ml-auto cursor-pointer hover:text-foreground" />
         </div>
 
         {/* Preview Input */}
         <div className="mb-6">
-          <label className="text-sm font-medium text-foreground mb-2 block">Preview</label>
+          <label className="text-sm font-medium text-foreground mb-2 block">Pré-visualização</label>
           <Input
             value={previewText}
             onChange={(e) => onPreviewTextChange(e.target.value)}
             className="bg-muted border-0"
-            placeholder="Digite para preview..."
+            placeholder="Digite para visualizar..."
           />
         </div>
 
@@ -236,12 +236,12 @@ export const FilterPanel = ({
 
         {/* Filter Section Header */}
         <div className="mb-4">
-          <h3 className="text-sm font-medium text-foreground mb-4">Filter</h3>
+          <h3 className="text-sm font-medium text-foreground mb-4">Filtros</h3>
         </div>
 
         {/* Feeling */}
         <FilterSection
-          title="Feeling"
+          title="Sentimento"
           icon={Smile}
           tags={feelingTags}
           selectedTags={selectedFeelings}
@@ -250,7 +250,7 @@ export const FilterPanel = ({
 
         {/* Appearance */}
         <FilterSection
-          title="Appearance"
+          title="Aparência"
           icon={Shirt}
           tags={appearanceTags}
           selectedTags={selectedAppearance}
@@ -259,7 +259,7 @@ export const FilterPanel = ({
 
         {/* Calligraphy */}
         <FilterSection
-          title="Calligraphy"
+          title="Caligrafia"
           icon={Type}
           tags={calligraphyTags}
           selectedTags={selectedCalligraphy}
@@ -268,7 +268,7 @@ export const FilterPanel = ({
 
         {/* Serif */}
         <FilterSection
-          title="Serif"
+          title="Serifada"
           icon={Type}
           tags={serifTags}
           selectedTags={selectedSerif}
@@ -277,7 +277,7 @@ export const FilterPanel = ({
 
         {/* Sans Serif */}
         <FilterSection
-          title="Sans Serif"
+          title="Sem Serifa"
           icon={Type}
           tags={sansSerifTags}
           selectedTags={selectedSansSerif}
@@ -286,7 +286,7 @@ export const FilterPanel = ({
 
         {/* Technology */}
         <FilterSection
-          title="Technology"
+          title="Tecnologia"
           icon={Type}
           tags={technologyTags}
           selectedTags={selectedTechnology}
@@ -295,7 +295,7 @@ export const FilterPanel = ({
 
         {/* Seasonal */}
         <FilterSection
-          title="Seasonal"
+          title="Sazonal"
           icon={Calendar}
           tags={seasonalTags}
           selectedTags={selectedSeasonal}
@@ -307,13 +307,13 @@ export const FilterPanel = ({
           <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-sm font-medium text-foreground hover:text-primary">
             <div className="flex items-center gap-2">
               <Settings2 className="w-4 h-4" />
-              Properties
+              Propriedades
             </div>
             <ChevronUp className="w-4 h-4" />
           </CollapsibleTrigger>
           <CollapsibleContent className="pt-3">
             <div className="space-y-2">
-              <span className="text-xs text-muted-foreground">Number of styles</span>
+              <span className="text-xs text-muted-foreground">Número de estilos</span>
               <Slider
                 value={numberOfStyles}
                 onValueChange={setNumberOfStyles}

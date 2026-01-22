@@ -57,7 +57,7 @@ export const IconFilterPanel = ({
   };
 
   return (
-    <aside className="w-72 min-w-72 border-r border-border bg-background h-screen overflow-y-auto sticky top-0">
+    <aside className="w-[280px] min-w-[280px] border-r border-border bg-background h-screen overflow-y-auto sticky top-0">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-2">

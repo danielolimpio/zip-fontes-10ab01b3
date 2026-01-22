@@ -40,7 +40,7 @@ export const EmojisConfigPanel = ({
   };
 
   return (
-    <div className="w-64 bg-white border-r border-border flex flex-col h-full overflow-hidden">
+    <div className="w-[280px] min-w-[280px] bg-background border-r border-border flex flex-col h-full overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-border flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -51,7 +51,7 @@ export const EmojisConfigPanel = ({
             className="text-muted-foreground hover:text-foreground"
           >
             <RotateCcw className="w-4 h-4 mr-1" />
-            Reset all
+            Resetar tudo
           </Button>
         </div>
         <Button variant="ghost" size="icon" className="h-6 w-6">

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { IconSidebar } from "@/components/IconSidebar";
+import { AppLayout } from "@/components/AppLayout";
 import { FilterPanel } from "@/components/FilterPanel";
 import { FontPagination } from "@/components/FontPagination";
 import { PageHeader } from "@/components/PageHeader";
@@ -56,22 +56,17 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Icon Sidebar (narrow left) */}
-      <IconSidebar />
+    <AppLayout activeItem="Fonts">
+      {/* Filter Panel - largura padronizada */}
+      {showFilters && (
+        <FilterPanel
+          previewText={previewText}
+          onPreviewTextChange={setPreviewText}
+          fontSize={fontSize}
+          onFontSizeChange={setFontSize}
+        />
+      )}
       
-      {/* Main Layout */}
-      <div className="ml-20 flex min-h-screen">
-        {/* Filter Panel - w-72 padronizado */}
-        {showFilters && (
-          <FilterPanel
-            previewText={previewText}
-            onPreviewTextChange={setPreviewText}
-            fontSize={fontSize}
-            onFontSizeChange={setFontSize}
-          />
-        )}
-        
         {/* Main Content Area - full width */}
         <main className="flex-1 min-h-screen bg-background flex flex-col">
           {/* Header padronizado */}
@@ -207,8 +202,7 @@ const Index = () => {
           {/* Footer padronizado */}
           <PageFooter />
         </main>
-      </div>
-    </div>
+    </AppLayout>
   );
 };
 

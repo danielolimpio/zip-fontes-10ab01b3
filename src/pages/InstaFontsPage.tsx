@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Copy, Check, Sparkles, Info, Heart, X } from "lucide-react";
-import { IconSidebar } from "@/components/IconSidebar";
+import { AppLayout } from "@/components/AppLayout";
 import { InstaFontsConfigPanel } from "@/components/InstaFontsConfigPanel";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -63,23 +63,18 @@ const InstaFontsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Icon Sidebar (narrow left) */}
-      <IconSidebar activeItem="Insta Fonts" />
-      
-      {/* Main Layout */}
-      <div className="ml-20 flex min-h-screen">
-        {/* Config Panel - w-72 padronizado */}
-        {showFilters && (
-          <InstaFontsConfigPanel
-            inputText={inputText}
-            onInputTextChange={setInputText}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            searchQuery={searchQuery}
-            onSearchQueryChange={setSearchQuery}
-          />
-        )}
+    <AppLayout activeItem="Insta">
+      {/* Config Panel - largura padronizada */}
+      {showFilters && (
+        <InstaFontsConfigPanel
+          inputText={inputText}
+          onInputTextChange={setInputText}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          searchQuery={searchQuery}
+          onSearchQueryChange={setSearchQuery}
+        />
+      )}
         
         {/* Main Content Area */}
         <main className="flex-1 min-h-screen bg-background flex flex-col">
@@ -228,8 +223,7 @@ const InstaFontsPage = () => {
           {/* Footer padronizado */}
           <PageFooter />
         </main>
-      </div>
-    </div>
+    </AppLayout>
   );
 };
 

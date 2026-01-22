@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { IconSidebar } from "@/components/IconSidebar";
+import { AppLayout } from "@/components/AppLayout";
 import { EmojisConfigPanel } from "@/components/EmojisConfigPanel";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -66,27 +66,22 @@ const EmojisPage = () => {
   const totalEmojis = filteredCategories.reduce((acc, cat) => acc + cat.emojis.length, 0);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Icon Sidebar */}
-      <IconSidebar activeItem="Emojis" />
-      
-      {/* Main Layout */}
-      <div className="ml-20 flex min-h-screen">
-        {/* Config Panel - w-72 padronizado */}
-        {showFilters && (
-          <EmojisConfigPanel
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            emojiSize={emojiSize}
-            onEmojiSizeChange={setEmojiSize}
-            showLabels={showLabels}
-            onShowLabelsChange={setShowLabels}
-            compactMode={compactMode}
-            onCompactModeChange={setCompactMode}
-          />
-        )}
+    <AppLayout activeItem="Emojis">
+      {/* Config Panel - largura padronizada */}
+      {showFilters && (
+        <EmojisConfigPanel
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          emojiSize={emojiSize}
+          onEmojiSizeChange={setEmojiSize}
+          showLabels={showLabels}
+          onShowLabelsChange={setShowLabels}
+          compactMode={compactMode}
+          onCompactModeChange={setCompactMode}
+        />
+      )}
 
         {/* Main Content */}
         <main className="flex-1 min-h-screen bg-background flex flex-col">
@@ -214,8 +209,7 @@ const EmojisPage = () => {
           {/* Footer padronizado */}
           <PageFooter />
         </main>
-      </div>
-    </div>
+    </AppLayout>
   );
 };
 
