@@ -63,7 +63,7 @@ const IconsPage = () => {
   const [iconFill, setIconFill] = useState(false);
   const [sortBy, setSortBy] = useState("Mais populares");
 
-  // Filter icons based on search - aumentado para 500 ícones
+  // Filter icons based on search - TODOS os ícones disponíveis (1500+)
   const filteredIcons = useMemo(() => {
     let icons = allIcons;
     
@@ -72,9 +72,31 @@ const IconsPage = () => {
         icon.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
+
+    // Filtrar por categoria
+    if (selectedCategory !== "Todos") {
+      const categoryKeywords: Record<string, string[]> = {
+        "Ações de UI": ["plus", "minus", "check", "x", "edit", "delete", "add", "remove", "copy", "paste", "cut", "undo", "redo", "save", "close", "open", "expand", "collapse", "zoom", "refresh", "rotate", "flip", "move", "drag", "drop", "select", "click", "tap", "toggle", "switch", "button"],
+        "Navegação": ["arrow", "chevron", "menu", "home", "back", "forward", "up", "down", "left", "right", "navigation", "compass", "map", "location", "pin", "route", "direction", "path", "corner", "move"],
+        "Mídia": ["play", "pause", "stop", "record", "video", "audio", "music", "camera", "image", "photo", "picture", "gallery", "album", "film", "movie", "tv", "screen", "volume", "speaker", "mic", "headphone", "radio", "podcast"],
+        "Comunicação": ["mail", "message", "chat", "comment", "phone", "call", "contact", "send", "inbox", "outbox", "reply", "forward", "share", "bell", "notification", "alert", "megaphone", "announce"],
+        "Arquivos": ["file", "folder", "document", "archive", "zip", "download", "upload", "cloud", "storage", "drive", "disk", "paper", "clipboard", "attachment", "link"],
+        "Gráficos": ["chart", "graph", "bar", "line", "pie", "analytics", "stats", "trending", "activity", "pulse", "signal", "data", "report"],
+        "Dispositivos": ["laptop", "computer", "desktop", "mobile", "tablet", "phone", "watch", "printer", "keyboard", "mouse", "monitor", "display", "cpu", "server", "hardware", "usb", "bluetooth", "wifi"],
+        "Clima": ["sun", "moon", "cloud", "rain", "snow", "wind", "storm", "thunder", "fog", "temperature", "thermometer", "weather", "umbrella", "droplet"],
+        "Social": ["user", "users", "group", "team", "people", "person", "profile", "avatar", "account", "heart", "like", "star", "bookmark", "follow", "friend", "community"],
+      };
+
+      const keywords = categoryKeywords[selectedCategory] || [];
+      icons = icons.filter(icon => 
+        keywords.some(keyword => 
+          icon.name.toLowerCase().includes(keyword.toLowerCase())
+        )
+      );
+    }
     
-    return icons.slice(0, 500); // Aumentado para 500 ícones
-  }, [searchQuery]);
+    return icons; // Retornar TODOS os ícones filtrados
+  }, [searchQuery, selectedCategory]);
 
   // Calcular strokeWidth baseado no weight (100-700 -> 0.5-3)
   const calculateStrokeWidth = () => {

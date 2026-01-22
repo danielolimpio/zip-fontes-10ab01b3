@@ -52,7 +52,8 @@ export const IconDetailPanel = ({
     URL.revokeObjectURL(url);
   }, [icon.name, iconSize, iconColor]);
 
-  const handleDownloadPNG = useCallback(() => {
+  // Download PNG em alta qualidade (4x scale para premium)
+  const handleDownloadPNG = useCallback((resolution: number = 512) => {
     const svgElement = svgRef.current?.querySelector('svg');
     if (!svgElement) return;
 
@@ -60,33 +61,40 @@ export const IconDetailPanel = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size (2x for better quality)
-    const scale = 2;
-    canvas.width = iconSize * scale;
-    canvas.height = iconSize * scale;
+    // Premium quality - alta resolução
+    canvas.width = resolution;
+    canvas.height = resolution;
 
-    // Clone and prepare SVG
+    // Clone and prepare SVG with high resolution
     const clonedSvg = svgElement.cloneNode(true) as SVGElement;
-    clonedSvg.setAttribute('width', String(iconSize * scale));
-    clonedSvg.setAttribute('height', String(iconSize * scale));
+    clonedSvg.setAttribute('width', String(resolution));
+    clonedSvg.setAttribute('height', String(resolution));
     clonedSvg.setAttribute('stroke', iconColor);
+    clonedSvg.setAttribute('stroke-width', '1.5');
+    clonedSvg.setAttribute('stroke-linecap', 'round');
+    clonedSvg.setAttribute('stroke-linejoin', 'round');
 
     const svgData = new XMLSerializer().serializeToString(clonedSvg);
     const img = new Image();
     
     img.onload = () => {
+      // Fundo transparente para PNG premium
+      ctx.clearRect(0, 0, resolution, resolution);
       ctx.drawImage(img, 0, 0);
       
       const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = `${icon.name.replace(/\s+/g, '-').toLowerCase()}.png`;
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.download = `${icon.name.replace(/\s+/g, '-').toLowerCase()}-${resolution}px.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     };
 
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
-  }, [icon.name, iconSize, iconColor]);
+  }, [icon.name, iconColor]);
+
+  // Tamanhos disponíveis para download PNG
+  const pngSizes = [48, 64, 128, 256, 512, 1024];
 
   return (
     <aside className="w-[320px] min-w-[320px] border-l border-border bg-background h-screen overflow-y-auto sticky top-0">
@@ -137,15 +145,19 @@ export const IconDetailPanel = ({
           </div>
         </div>
 
-        {/* Icon Preview */}
+        {/* Icon Preview - Premium quality */}
         <div 
           ref={svgRef}
-          className="w-full aspect-square bg-muted/30 rounded-lg flex items-center justify-center mb-4 border border-border"
+          className="w-full aspect-square bg-gradient-to-br from-muted/20 to-muted/50 rounded-xl flex items-center justify-center mb-4 border-2 border-border shadow-inner"
+          style={{ minHeight: '200px' }}
         >
           <icon.Icon 
-            size={Math.min(iconSize * 2, 120)} 
+            size={Math.min(iconSize * 3, 160)} 
             color={iconColor}
             strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="drop-shadow-sm"
           />
         </div>
 
@@ -176,22 +188,35 @@ export const IconDetailPanel = ({
           <button className="text-xs text-primary hover:underline mt-1">Ver mais</button>
         </div>
 
-        {/* Download Buttons */}
-        <div className="flex gap-2 mb-6">
-          <Button 
-            onClick={handleDownloadSVG}
-            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            SVG
-          </Button>
-          <Button 
-            onClick={handleDownloadPNG}
-            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            PNG
-          </Button>
+        {/* Download Buttons - Premium */}
+        <div className="space-y-3 mb-6">
+          <div className="flex gap-2">
+            <Button 
+              onClick={handleDownloadSVG}
+              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Baixar SVG
+            </Button>
+          </div>
+          
+          {/* PNG Size Options */}
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">Baixar PNG (alta qualidade)</p>
+            <div className="grid grid-cols-3 gap-1">
+              {pngSizes.map((size) => (
+                <Button 
+                  key={size}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleDownloadPNG(size)}
+                  className="text-xs h-8"
+                >
+                  {size}px
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Platform Tabs */}
