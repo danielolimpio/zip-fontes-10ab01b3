@@ -42,7 +42,7 @@ export const InstaFontsConfigPanel = ({
   const categories = getCategories();
 
   return (
-    <aside className="w-[280px] bg-card border-r border-border flex-shrink-0 overflow-y-auto h-screen sticky top-0">
+    <aside className="w-[280px] min-w-[280px] bg-background border-r border-border flex-shrink-0 overflow-y-auto h-screen sticky top-0">
       <div className="p-4 space-y-6">
         {/* Input Text Section */}
         <div className="space-y-3">

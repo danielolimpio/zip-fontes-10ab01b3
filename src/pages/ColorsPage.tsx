@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { IconSidebar } from "@/components/IconSidebar";
+import { AppLayout } from "@/components/AppLayout";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
 import { StatsCards } from "@/components/StatsCards";
@@ -320,15 +320,10 @@ const ColorsPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Icon Sidebar */}
-      <IconSidebar />
-      
-      {/* Main Layout */}
-      <div className="ml-20 flex min-h-screen">
-        {/* Filter/Config Panel - w-72 padronizado */}
+    <AppLayout activeItem="Cores">
+        {/* Filter/Config Panel - largura padronizada */}
         {showFilters && (
-          <aside className="w-72 border-r border-border bg-background p-6 flex-shrink-0">
+          <aside className="w-[280px] min-w-[280px] border-r border-border bg-background p-6 flex-shrink-0">
             <h2 className="text-sm font-semibold text-foreground mb-4">Configurações</h2>
             
             {/* Search dentro do painel */}
@@ -439,8 +434,7 @@ const ColorsPage = () => {
           {/* Footer padronizado */}
           <PageFooter />
         </main>
-      </div>
-    </div>
+    </AppLayout>
   );
 };
 

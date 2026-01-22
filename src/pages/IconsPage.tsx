@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { IconSidebar } from "@/components/IconSidebar";
+import { AppLayout } from "@/components/AppLayout";
 import { IconFilterPanel } from "@/components/IconFilterPanel";
 import { IconDetailPanel } from "@/components/IconDetailPanel";
 import { PageHeader } from "@/components/PageHeader";
@@ -263,30 +263,25 @@ const IconsPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Icon Sidebar (narrow left) */}
-      <IconSidebar activeItem="Icons" />
-      
-      {/* Main Layout */}
-      <div className="ml-20 flex min-h-screen">
-        {/* Filter Panel - w-72 padronizado */}
-        {showFilters && (
-          <IconFilterPanel
-            iconWeight={iconWeight}
-            onIconWeightChange={setIconWeight}
-            iconGrade={iconGrade}
-            onIconGradeChange={setIconGrade}
-            opticalSize={opticalSize}
-            onOpticalSizeChange={setOpticalSize}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            iconStyle={iconStyle}
-            onIconStyleChange={setIconStyle}
-            iconFill={iconFill}
-            onIconFillChange={setIconFill}
-            categories={filterCategories}
-          />
-        )}
+    <AppLayout activeItem="Icons">
+      {/* Filter Panel - largura padronizada */}
+      {showFilters && (
+        <IconFilterPanel
+          iconWeight={iconWeight}
+          onIconWeightChange={setIconWeight}
+          iconGrade={iconGrade}
+          onIconGradeChange={setIconGrade}
+          opticalSize={opticalSize}
+          onOpticalSizeChange={setOpticalSize}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          iconStyle={iconStyle}
+          onIconStyleChange={setIconStyle}
+          iconFill={iconFill}
+          onIconFillChange={setIconFill}
+          categories={filterCategories}
+        />
+      )}
         
         {/* Main Content Area */}
         <main className="flex-1 min-h-screen bg-background flex flex-col">
@@ -378,8 +373,7 @@ const IconsPage = () => {
             onClose={() => setSelectedIcon(null)}
           />
         )}
-      </div>
-    </div>
+    </AppLayout>
   );
 };
 
