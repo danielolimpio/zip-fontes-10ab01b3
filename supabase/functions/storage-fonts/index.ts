@@ -1,7 +1,56 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
-import { createClient } from 'npm:@supabase/supabase-js@2'
 
 const BUCKET = 'ZipFontes'
+const STORAGE_TIMEOUT_MS = 8000
+
+type StorageObject = {
+  name: string
+  metadata?: { size?: number }
+}
+
+const jsonResponse = (body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  })
+
+const emptyCatalog = (page: number, limit: number, reason: string) => ({
+  fonts: [],
+  pagination: { currentPage: page, totalPages: 1, totalFonts: 0, itemsPerPage: limit },
+  unavailable: true,
+  reason,
+})
+
+async function listStorageObjects(baseUrl: string, key: string, search: string, page: number, limit: number) {
+  const offset = (page - 1) * limit
+  const endpoint = `${baseUrl.replace(/\/$/, '')}/storage/v1/object/list/${BUCKET}`
+  const requestBody: Record<string, unknown> = {
+    prefix: '',
+    limit: limit + 1,
+    offset,
+    sortBy: { column: 'name', order: 'asc' },
+  }
+
+  if (search) requestBody.search = search
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+    signal: AbortSignal.timeout(STORAGE_TIMEOUT_MS),
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(errorText || `Storage respondeu com status ${response.status}`)
+  }
+
+  return (await response.json()) as StorageObject[]
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
@@ -9,67 +58,45 @@ Deno.serve(async (req) => {
   try {
     const url = Deno.env.get('ZIPFONTES_SUPABASE_URL')!
     const key = Deno.env.get('ZIPFONTES_SERVICE_ROLE_KEY')!
-    const supabase = createClient(url, key)
 
     const u = new URL(req.url)
     const search = (u.searchParams.get('search') || '').toLowerCase().trim()
     const page = Math.max(1, parseInt(u.searchParams.get('page') || '1'))
     const limit = Math.min(100, Math.max(1, parseInt(u.searchParams.get('limit') || '24')))
 
-    // List all files at root (paginated by Supabase, max 1000 per call)
-    const all: { name: string; size: number }[] = []
-    let offset = 0
-    const pageSize = 1000
-    while (true) {
-      const { data, error } = await supabase.storage.from(BUCKET).list('', {
-        limit: pageSize,
-        offset,
-        sortBy: { column: 'name', order: 'asc' },
-      })
-      if (error) throw error
-      if (!data || data.length === 0) break
-      for (const f of data) {
-        const n = f.name.toLowerCase()
-        if (n.endsWith('.ttf') || n.endsWith('.otf')) {
-          all.push({ name: f.name, size: (f as any).metadata?.size ?? 0 })
-        }
-      }
-      if (data.length < pageSize) break
-      offset += pageSize
-    }
+    if (!url || !key) return jsonResponse(emptyCatalog(page, limit, 'Configuração do catálogo ausente'))
 
-    // Filter
-    const filtered = search
-      ? all.filter((f) => f.name.toLowerCase().includes(search))
-      : all
-
-    const total = filtered.length
-    const totalPages = Math.max(1, Math.ceil(total / limit))
-    const start = (page - 1) * limit
-    const slice = filtered.slice(start, start + limit)
+    const objects = await listStorageObjects(url, key, search, page, limit)
+    const filtered = objects.filter((f) => {
+      const n = f.name.toLowerCase()
+      return n.endsWith('.ttf') || n.endsWith('.otf')
+    })
+    const hasNextPage = filtered.length > limit
+    const slice = filtered.slice(0, limit)
 
     const fonts = slice.map((f) => {
       const familyName = f.name.replace(/\.(ttf|otf)$/i, '').replace(/[-_]/g, ' ')
-      const { data: pub } = supabase.storage.from(BUCKET).getPublicUrl(f.name)
       return {
         name: familyName,
         fileName: f.name,
-        size: f.size,
-        url: pub.publicUrl,
+        size: f.metadata?.size ?? 0,
+        url: `${url.replace(/\/$/, '')}/storage/v1/object/public/${BUCKET}/${encodeURIComponent(f.name)}`,
       }
     })
 
-    return new Response(
-      JSON.stringify({
-        fonts,
-        pagination: { currentPage: page, totalPages, totalFonts: total, itemsPerPage: limit },
-      }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
-    )
-  } catch (e) {
-    return new Response(JSON.stringify({ error: String(e?.message || e) }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    return jsonResponse({
+      fonts,
+      pagination: {
+        currentPage: page,
+        totalPages: hasNextPage ? page + 1 : page,
+        totalFonts: (page - 1) * limit + fonts.length + (hasNextPage ? 1 : 0),
+        itemsPerPage: limit,
+      },
     })
+  } catch (e) {
+    const u = new URL(req.url)
+    const page = Math.max(1, parseInt(u.searchParams.get('page') || '1'))
+    const limit = Math.min(100, Math.max(1, parseInt(u.searchParams.get('limit') || '24')))
+    return jsonResponse(emptyCatalog(page, limit, String(e?.message || e)))
   }
 })
