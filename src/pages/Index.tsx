@@ -152,8 +152,13 @@ const Index = () => {
           )}
 
           {error && (
-            <div className="flex items-center justify-center py-20 text-destructive">
-              <span>Erro ao carregar fontes. Tente novamente.</span>
+            <div className="flex flex-col items-center justify-center py-20 text-center max-w-xl mx-auto">
+              <span className="text-destructive font-medium mb-2">
+                Catálogo de fontes temporariamente indisponível
+              </span>
+              <span className="text-sm text-muted-foreground">
+                Nosso armazenamento está em manutenção. Tente novamente em alguns minutos.
+              </span>
             </div>
           )}
 
