@@ -15,6 +15,8 @@ export interface StorageFontsResponse {
     totalFonts: number;
     itemsPerPage: number;
   };
+  unavailable?: boolean;
+  reason?: string;
 }
 
 interface Params {
@@ -40,8 +42,9 @@ export function useStorageFonts({ page = 1, limit = 24, search = "" }: Params = 
           },
         },
       );
-      if (!res.ok) throw new Error("Falha ao carregar fontes");
-      return res.json();
+      const payload = await res.json();
+      if (!res.ok) throw new Error(payload?.error || "Falha ao carregar fontes");
+      return payload;
     },
     staleTime: 1000 * 60 * 10,
   });

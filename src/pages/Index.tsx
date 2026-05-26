@@ -34,6 +34,7 @@ const Index = () => {
   const fonts = data?.fonts || [];
   const totalPages = data?.pagination.totalPages || 1;
   const totalFonts = data?.pagination.totalFonts || 0;
+  const catalogUnavailable = Boolean(error || data?.unavailable);
 
   // Inject @font-face for each visible font
   useEffect(() => {
@@ -151,7 +152,7 @@ const Index = () => {
             </div>
           )}
 
-          {error && (
+          {catalogUnavailable && (
             <div className="flex flex-col items-center justify-center py-20 text-center max-w-xl mx-auto">
               <span className="text-destructive font-medium mb-2">
                 Catálogo de fontes temporariamente indisponível
@@ -162,7 +163,7 @@ const Index = () => {
             </div>
           )}
 
-          {!isLoading && !error && (
+          {!isLoading && !catalogUnavailable && (
             <div
               className={
                 viewMode === "grid"
