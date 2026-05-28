@@ -179,6 +179,7 @@ const InstaFontsPage = () => {
                         <Button
                           variant="ghost"
                           size="icon"
+                          aria-label="Favoritar estilo"
                           className="opacity-0 group-hover:opacity-100 transition-opacity"
                         >
                           <Heart className="w-4 h-4" />
