@@ -103,6 +103,8 @@ const Index = () => {
         />
 
         <div className="px-6 py-6 flex-1">
+          <h1 className="sr-only">Zip Fontes — Catálogo de Fontes Gratuitas</h1>
+
           <div className="mb-6">
             <Button
               variant={showFilters ? "default" : "outline"}
