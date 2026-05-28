@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -152,7 +153,13 @@ const FaqPage = () => {
   const totalQuestions = faqCategories.reduce((acc, cat) => acc + cat.questions.length, 0);
 
   return (
-    <AppLayout activeItem="FAQ">
+    <>
+      <Helmet>
+        <title>FAQ - Zip Fontes</title>
+        <meta name="description" content="Encontre respostas para as dúvidas mais comuns sobre fontes, ícones, emojis e todas as ferramentas do Zip Fontes." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/faq" />
+      </Helmet>
+      <AppLayout activeItem="FAQ">
       <div className="flex-1 flex flex-col min-h-screen">
         <PageHeader
           searchQuery={searchQuery}
@@ -220,6 +227,7 @@ const FaqPage = () => {
         <PageFooter />
       </div>
     </AppLayout>
+    </>
   );
 };
 
