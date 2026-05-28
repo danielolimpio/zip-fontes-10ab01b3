@@ -384,6 +384,7 @@ const IconsPage = () => {
           />
         )}
     </AppLayout>
+    </>
   );
 };
 

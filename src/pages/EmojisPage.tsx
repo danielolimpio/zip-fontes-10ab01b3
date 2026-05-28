@@ -221,3 +221,6 @@ const EmojisPage = () => {
     </AppLayout>
     </>
   );
+};
+
+export default EmojisPage;

@@ -442,6 +442,7 @@ const ColorsPage = () => {
           <PageFooter />
         </main>
     </AppLayout>
+    </>
   );
 };
 
