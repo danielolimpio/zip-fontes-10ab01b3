@@ -93,6 +93,8 @@ const InstaFontsPage = () => {
           
           {/* Content */}
           <div className="px-6 py-6 flex-1">
+            <h1 className="sr-only">Zip Fontes — Insta Fonts</h1>
+
             {/* Filters Button */}
             <div className="mb-6">
               <Button 
@@ -120,6 +122,7 @@ const InstaFontsPage = () => {
                     {selectedCategory}
                     <button 
                       onClick={() => setSelectedCategory(null)}
+                      aria-label="Remover filtro de categoria"
                       className="ml-1 hover:text-foreground"
                     >
                       ×
@@ -177,6 +180,7 @@ const InstaFontsPage = () => {
                         <Button
                           variant="ghost"
                           size="icon"
+                          aria-label="Favoritar estilo"
                           className="opacity-0 group-hover:opacity-100 transition-opacity"
                         >
                           <Heart className="w-4 h-4" />

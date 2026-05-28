@@ -99,6 +99,8 @@ const EmojisPage = () => {
 
           {/* Content */}
           <div className="flex-1 p-6 overflow-y-auto">
+            <h1 className="sr-only">Zip Fontes — Catálogo de Emojis</h1>
+
             {/* Filters Button */}
             <div className="mb-6">
               <Button 

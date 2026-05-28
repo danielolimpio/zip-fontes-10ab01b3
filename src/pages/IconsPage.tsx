@@ -296,6 +296,7 @@ const IconsPage = () => {
                 <select 
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
+                  aria-label="Ordenar ícones por"
                   className="text-sm font-medium bg-transparent border-0 focus:outline-none cursor-pointer"
                 >
                   <option value="Mais populares">Mais populares</option>
@@ -308,6 +309,8 @@ const IconsPage = () => {
           
           {/* Content */}
           <div className="px-6 py-6 flex-1">
+            <h1 className="sr-only">Zip Fontes — Catálogo de Ícones</h1>
+
             {/* Filters Button */}
             <div className="mb-6">
               <Button 
