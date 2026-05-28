@@ -93,6 +93,8 @@ const InstaFontsPage = () => {
           
           {/* Content */}
           <div className="px-6 py-6 flex-1">
+            <h1 className="sr-only">Zip Fontes — Insta Fonts</h1>
+
             {/* Filters Button */}
             <div className="mb-6">
               <Button 
