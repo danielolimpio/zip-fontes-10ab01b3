@@ -264,7 +264,13 @@ const IconsPage = () => {
   );
 
   return (
-    <AppLayout activeItem="Icons">
+    <>
+      <Helmet>
+        <title>Ícones - Zip Fontes</title>
+        <meta name="description" content="Biblioteca com mais de 1.500 ícones vetoriais gratuitos da coleção Lucide. Baixe em PNG e SVG com personalização de cor e tamanho." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/icons" />
+      </Helmet>
+      <AppLayout activeItem="Icons">
       {/* Filter Panel - largura padronizada */}
       {showFilters && (
         <IconFilterPanel

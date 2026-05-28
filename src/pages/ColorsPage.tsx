@@ -321,7 +321,13 @@ const ColorsPage = () => {
   );
 
   return (
-    <AppLayout activeItem="Cores">
+    <>
+      <Helmet>
+        <title>Cores - Zip Fontes</title>
+        <meta name="description" content="Paleta de cores Material Design completa. Explore, copie códigos HEX e encontre a combinação perfeita para seus projetos." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/colors" />
+      </Helmet>
+      <AppLayout activeItem="Cores">
         {/* Filter/Config Panel - largura padronizada */}
         {showFilters && (
           <aside className="w-[280px] min-w-[280px] border-r border-border bg-background p-6 flex-shrink-0">

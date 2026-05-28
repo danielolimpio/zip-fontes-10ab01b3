@@ -67,7 +67,13 @@ const EmojisPage = () => {
   const totalEmojis = filteredCategories.reduce((acc, cat) => acc + cat.emojis.length, 0);
 
   return (
-    <AppLayout activeItem="Emojis">
+    <>
+      <Helmet>
+        <title>Emojis - Zip Fontes</title>
+        <meta name="description" content="Explore milhares de emojis organizados por categoria. Copie e cole em redes sociais, mensagens e documentos." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/emojis" />
+      </Helmet>
+      <AppLayout activeItem="Emojis">
       {/* Config Panel - largura padronizada */}
       {showFilters && (
         <EmojisConfigPanel
@@ -213,7 +219,5 @@ const EmojisPage = () => {
           <PageFooter />
         </main>
     </AppLayout>
+    </>
   );
-};
-
-export default EmojisPage;
