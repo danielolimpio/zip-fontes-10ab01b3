@@ -133,12 +133,14 @@ const Index = () => {
               <div className="flex items-center border border-border rounded-lg overflow-hidden">
                 <button
                   onClick={() => setViewMode("grid")}
+                  aria-label="Visualização em grade"
                   className={`p-2 ${viewMode === "grid" ? "bg-muted" : "hover:bg-muted/50"}`}
                 >
                   <Grid className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
+                  aria-label="Visualização em lista"
                   className={`p-2 ${viewMode === "list" ? "bg-muted" : "hover:bg-muted/50"}`}
                 >
                   <List className="w-4 h-4" />
