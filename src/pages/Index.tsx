@@ -86,7 +86,13 @@ const Index = () => {
   };
 
   return (
-    <AppLayout activeItem="Fonts">
+    <>
+      <Helmet>
+        <title>Zip Fontes - Fontes Gratuitas para Download</title>
+        <meta name="description" content="Explore e baixe milhares de fontes gratuitas 100% livres de direitos autorais. Catálogo completo com preview em tempo real." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/" />
+      </Helmet>
+      <AppLayout activeItem="Fonts">
       {showFilters && (
         <FilterPanel
           previewText={previewText}
