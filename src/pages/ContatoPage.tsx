@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -22,7 +23,13 @@ const ContatoPage = () => {
   };
 
   return (
-    <AppLayout>
+    <>
+      <Helmet>
+        <title>Contato - Zip Fontes</title>
+        <meta name="description" content="Entre em contato com a equipe Zip Fontes. Tire dúvidas, envie sugestões ou solicite suporte." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/contato" />
+      </Helmet>
+      <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
         <PageHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="Buscar..." />
 
@@ -112,6 +119,7 @@ const ContatoPage = () => {
         <PageFooter />
       </div>
     </AppLayout>
+    </>
   );
 };
 

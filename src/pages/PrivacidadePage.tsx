@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -89,7 +90,13 @@ const PrivacidadePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <AppLayout>
+    <>
+      <Helmet>
+        <title>Privacidade - Zip Fontes</title>
+        <meta name="description" content="Política de privacidade do Zip Fontes. Saiba como coletamos, usamos e protegemos suas informações." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/privacidade" />
+      </Helmet>
+      <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
         <PageHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="Buscar..." />
 
@@ -133,6 +140,7 @@ const PrivacidadePage = () => {
         <PageFooter />
       </div>
     </AppLayout>
+    </>
   );
 };
 

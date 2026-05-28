@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { EmojisConfigPanel } from "@/components/EmojisConfigPanel";
 import { PageHeader } from "@/components/PageHeader";
@@ -66,7 +67,13 @@ const EmojisPage = () => {
   const totalEmojis = filteredCategories.reduce((acc, cat) => acc + cat.emojis.length, 0);
 
   return (
-    <AppLayout activeItem="Emojis">
+    <>
+      <Helmet>
+        <title>Emojis - Zip Fontes</title>
+        <meta name="description" content="Explore milhares de emojis organizados por categoria. Copie e cole em redes sociais, mensagens e documentos." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/emojis" />
+      </Helmet>
+      <AppLayout activeItem="Emojis">
       {/* Config Panel - largura padronizada */}
       {showFilters && (
         <EmojisConfigPanel
@@ -212,6 +219,7 @@ const EmojisPage = () => {
           <PageFooter />
         </main>
     </AppLayout>
+    </>
   );
 };
 

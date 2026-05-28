@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { FilterPanel } from "@/components/FilterPanel";
 import { FontPagination } from "@/components/FontPagination";
@@ -85,7 +86,13 @@ const Index = () => {
   };
 
   return (
-    <AppLayout activeItem="Fonts">
+    <>
+      <Helmet>
+        <title>Zip Fontes - Fontes Gratuitas para Download</title>
+        <meta name="description" content="Explore e baixe milhares de fontes gratuitas 100% livres de direitos autorais. Catálogo completo com preview em tempo real." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/" />
+      </Helmet>
+      <AppLayout activeItem="Fonts">
       {showFilters && (
         <FilterPanel
           previewText={previewText}
@@ -241,6 +248,7 @@ const Index = () => {
         <PageFooter />
       </main>
     </AppLayout>
+    </>
   );
 };
 

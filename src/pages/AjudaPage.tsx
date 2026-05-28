@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -81,7 +82,13 @@ const AjudaPage = () => {
   const navigate = useNavigate();
 
   return (
-    <AppLayout>
+    <>
+      <Helmet>
+        <title>Ajuda - Zip Fontes</title>
+        <meta name="description" content="Guias passo a passo, solução de problemas e tudo que você precisa para aproveitar o Zip Fontes." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/ajuda" />
+      </Helmet>
+      <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
         <PageHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="Buscar ajuda..." />
 
@@ -188,6 +195,7 @@ const AjudaPage = () => {
         <PageFooter />
       </div>
     </AppLayout>
+    </>
   );
 };
 

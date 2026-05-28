@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   const location = useLocation();
@@ -9,6 +10,12 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
+    <>
+      <Helmet>
+        <title>Página não encontrada - Zip Fontes</title>
+        <meta name="description" content="A página que você procura não foi encontrada. Volte para a página inicial do Zip Fontes." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/" />
+      </Helmet>
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <div className="text-center">
         <h1 className="mb-4 text-4xl font-bold">404</h1>
@@ -18,6 +25,7 @@ const NotFound = () => {
         </a>
       </div>
     </div>
+    </>
   );
 };
 

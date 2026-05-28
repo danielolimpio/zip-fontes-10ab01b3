@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import { Copy, Check, Sparkles, Info, Heart, X } from "lucide-react";
 import { AppLayout } from "@/components/AppLayout";
 import { InstaFontsConfigPanel } from "@/components/InstaFontsConfigPanel";
@@ -63,7 +64,13 @@ const InstaFontsPage = () => {
   };
 
   return (
-    <AppLayout activeItem="Insta">
+    <>
+      <Helmet>
+        <title>Insta Fonts - Zip Fontes</title>
+        <meta name="description" content="Transforme seu texto em estilos decorativos para Instagram, Twitter e TikTok. Cursivo, negrito, duplo e muito mais." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/insta-fonts" />
+      </Helmet>
+      <AppLayout activeItem="Insta">
       {/* Config Panel - largura padronizada */}
       {showFilters && (
         <InstaFontsConfigPanel
@@ -228,6 +235,7 @@ const InstaFontsPage = () => {
           <PageFooter />
         </main>
     </AppLayout>
+    </>
   );
 };
 
