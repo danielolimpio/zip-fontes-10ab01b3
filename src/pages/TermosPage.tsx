@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -72,7 +73,13 @@ const TermosPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <AppLayout>
+    <>
+      <Helmet>
+        <title>Termos de Uso - Zip Fontes</title>
+        <meta name="description" content="Leia os termos e condições de uso da plataforma Zip Fontes. Regras, licenças e responsabilidades." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/termos" />
+      </Helmet>
+      <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
         <PageHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="Buscar..." />
 
@@ -121,6 +128,7 @@ const TermosPage = () => {
         <PageFooter />
       </div>
     </AppLayout>
+    </>
   );
 };
 

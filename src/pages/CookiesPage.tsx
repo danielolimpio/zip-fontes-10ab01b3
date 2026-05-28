@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AppLayout } from "@/components/AppLayout";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -47,7 +48,13 @@ const CookiesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <AppLayout>
+    <>
+      <Helmet>
+        <title>Cookies - Zip Fontes</title>
+        <meta name="description" content="Política de cookies do Zip Fontes. Saiba quais cookies usamos e como gerenciar suas preferências." />
+        <link rel="canonical" href="https://zip-fontes.lovable.app/cookies" />
+      </Helmet>
+      <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
         <PageHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="Buscar..." />
 
@@ -148,6 +155,7 @@ const CookiesPage = () => {
         <PageFooter />
       </div>
     </AppLayout>
+    </>
   );
 };
 
