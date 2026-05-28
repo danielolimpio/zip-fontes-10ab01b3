@@ -122,6 +122,7 @@ const InstaFontsPage = () => {
                     {selectedCategory}
                     <button 
                       onClick={() => setSelectedCategory(null)}
+                      aria-label="Remover filtro de categoria"
                       className="ml-1 hover:text-foreground"
                     >
                       ×
