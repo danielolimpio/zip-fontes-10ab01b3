@@ -72,6 +72,11 @@ const EmojisPage = () => {
         <title>Emojis - Zip Fontes</title>
         <meta name="description" content="Explore milhares de emojis organizados por categoria. Copie e cole em redes sociais, mensagens e documentos." />
         <link rel="canonical" href="https://zip-fontes.lovable.app/emojis" />
+        <meta property="og:title" content="Emojis - Zip Fontes" />
+        <meta property="og:description" content="Explore milhares de emojis organizados por categoria. Copie e cole em redes sociais, mensagens e documentos." />
+        <meta property="og:url" content="https://zip-fontes.lovable.app/emojis" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
       </Helmet>
       <AppLayout activeItem="Emojis">
       {/* Config Panel - largura padronizada */}

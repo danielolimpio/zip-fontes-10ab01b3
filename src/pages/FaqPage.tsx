@@ -158,6 +158,11 @@ const FaqPage = () => {
         <title>FAQ - Zip Fontes</title>
         <meta name="description" content="Encontre respostas para as dúvidas mais comuns sobre fontes, ícones, emojis e todas as ferramentas do Zip Fontes." />
         <link rel="canonical" href="https://zip-fontes.lovable.app/faq" />
+        <meta property="og:title" content="FAQ - Zip Fontes" />
+        <meta property="og:description" content="Encontre respostas para as dúvidas mais comuns sobre fontes, ícones, emojis e todas as ferramentas do Zip Fontes." />
+        <meta property="og:url" content="https://zip-fontes.lovable.app/faq" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
       </Helmet>
       <AppLayout activeItem="FAQ">
       <div className="flex-1 flex flex-col min-h-screen">

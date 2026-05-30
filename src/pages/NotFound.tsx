@@ -15,6 +15,11 @@ const NotFound = () => {
         <title>Página não encontrada - Zip Fontes</title>
         <meta name="description" content="A página que você procura não foi encontrada. Volte para a página inicial do Zip Fontes." />
         <link rel="canonical" href="https://zip-fontes.lovable.app/" />
+        <meta property="og:title" content="Página não encontrada - Zip Fontes" />
+        <meta property="og:description" content="A página que você procura não foi encontrada. Volte para a página inicial do Zip Fontes." />
+        <meta property="og:url" content="https://zip-fontes.lovable.app/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
       </Helmet>
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <div className="text-center">

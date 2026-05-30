@@ -91,6 +91,11 @@ const Index = () => {
         <title>Zip Fontes - Fontes Gratuitas para Download</title>
         <meta name="description" content="Explore e baixe milhares de fontes gratuitas 100% livres de direitos autorais. Catálogo completo com preview em tempo real." />
         <link rel="canonical" href="https://zip-fontes.lovable.app/" />
+        <meta property="og:title" content="Zip Fontes - Fontes Gratuitas para Download" />
+        <meta property="og:description" content="Explore e baixe milhares de fontes gratuitas 100% livres de direitos autorais. Catálogo completo com preview em tempo real." />
+        <meta property="og:url" content="https://zip-fontes.lovable.app/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
       </Helmet>
       <AppLayout activeItem="Fonts">
       {showFilters && (
