@@ -95,6 +95,11 @@ const PrivacidadePage = () => {
         <title>Privacidade - Zip Fontes</title>
         <meta name="description" content="Política de privacidade do Zip Fontes. Saiba como coletamos, usamos e protegemos suas informações." />
         <link rel="canonical" href="https://zip-fontes.lovable.app/privacidade" />
+        <meta property="og:title" content="Privacidade - Zip Fontes" />
+        <meta property="og:description" content="Política de privacidade do Zip Fontes. Saiba como coletamos, usamos e protegemos suas informações." />
+        <meta property="og:url" content="https://zip-fontes.lovable.app/privacidade" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
       </Helmet>
       <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">

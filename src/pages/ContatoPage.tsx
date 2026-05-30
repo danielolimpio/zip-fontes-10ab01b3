@@ -28,6 +28,11 @@ const ContatoPage = () => {
         <title>Contato - Zip Fontes</title>
         <meta name="description" content="Entre em contato com a equipe Zip Fontes. Tire dúvidas, envie sugestões ou solicite suporte." />
         <link rel="canonical" href="https://zip-fontes.lovable.app/contato" />
+        <meta property="og:title" content="Contato - Zip Fontes" />
+        <meta property="og:description" content="Entre em contato com a equipe Zip Fontes. Tire dúvidas, envie sugestões ou solicite suporte." />
+        <meta property="og:url" content="https://zip-fontes.lovable.app/contato" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
       </Helmet>
       <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
