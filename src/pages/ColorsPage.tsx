@@ -326,6 +326,11 @@ const ColorsPage = () => {
         <title>Cores - Zip Fontes</title>
         <meta name="description" content="Paleta de cores Material Design completa. Explore, copie códigos HEX e encontre a combinação perfeita para seus projetos." />
         <link rel="canonical" href="https://zip-fontes.lovable.app/colors" />
+        <meta property="og:title" content="Cores - Zip Fontes" />
+        <meta property="og:description" content="Paleta de cores Material Design completa. Explore, copie códigos HEX e encontre a combinação perfeita para seus projetos." />
+        <meta property="og:url" content="https://zip-fontes.lovable.app/colors" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
       </Helmet>
       <AppLayout activeItem="Cores">
         {/* Filter/Config Panel - largura padronizada */}
