@@ -86,12 +86,12 @@ const AjudaPage = () => {
       <Helmet>
         <title>Ajuda - Zip Fontes</title>
         <meta name="description" content="Guias passo a passo, solução de problemas e tudo que você precisa para aproveitar o Zip Fontes." />
-        <link rel="canonical" href="https://zip-fontes.lovable.app/ajuda" />
+        <link rel="canonical" href="https://zipfontes.com.br/ajuda" />
         <meta property="og:title" content="Ajuda - Zip Fontes" />
         <meta property="og:description" content="Guias passo a passo, solução de problemas e tudo que você precisa para aproveitar o Zip Fontes." />
-        <meta property="og:url" content="https://zip-fontes.lovable.app/ajuda" />
+        <meta property="og:url" content="https://zipfontes.com.br/ajuda" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
+        <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
       </Helmet>
       <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">

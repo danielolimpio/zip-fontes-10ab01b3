@@ -268,12 +268,12 @@ const IconsPage = () => {
       <Helmet>
         <title>Ícones - Zip Fontes</title>
         <meta name="description" content="Biblioteca com mais de 1.500 ícones vetoriais gratuitos da coleção Lucide. Baixe em PNG e SVG com personalização de cor e tamanho." />
-        <link rel="canonical" href="https://zip-fontes.lovable.app/icons" />
+        <link rel="canonical" href="https://zipfontes.com.br/icons" />
         <meta property="og:title" content="Ícones - Zip Fontes" />
         <meta property="og:description" content="Biblioteca com mais de 1.500 ícones vetoriais gratuitos da coleção Lucide. Baixe em PNG e SVG com personalização de cor e tamanho." />
-        <meta property="og:url" content="https://zip-fontes.lovable.app/icons" />
+        <meta property="og:url" content="https://zipfontes.com.br/icons" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
+        <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
       </Helmet>
       <AppLayout activeItem="Icons">
       {/* Filter Panel - largura padronizada */}

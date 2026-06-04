@@ -77,12 +77,12 @@ const TermosPage = () => {
       <Helmet>
         <title>Termos de Uso - Zip Fontes</title>
         <meta name="description" content="Leia os termos e condições de uso da plataforma Zip Fontes. Regras, licenças e responsabilidades." />
-        <link rel="canonical" href="https://zip-fontes.lovable.app/termos" />
+        <link rel="canonical" href="https://zipfontes.com.br/termos" />
         <meta property="og:title" content="Termos de Uso - Zip Fontes" />
         <meta property="og:description" content="Leia os termos e condições de uso da plataforma Zip Fontes. Regras, licenças e responsabilidades." />
-        <meta property="og:url" content="https://zip-fontes.lovable.app/termos" />
+        <meta property="og:url" content="https://zipfontes.com.br/termos" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
+        <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
       </Helmet>
       <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
