@@ -32,10 +32,10 @@ export const FontCard = ({ name, category, author, previewText, fontFamily }: Fo
         
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
-          <button className="text-gray-400 hover:text-foreground transition-colors">
+          <button className="text-muted-foreground hover:text-foreground transition-colors">
             <Download className="w-5 h-5" />
           </button>
-          <button className="text-gray-400 hover:text-primary transition-colors">
+          <button className="text-muted-foreground hover:text-primary transition-colors">
             <Heart className="w-5 h-5" />
           </button>
         </div>

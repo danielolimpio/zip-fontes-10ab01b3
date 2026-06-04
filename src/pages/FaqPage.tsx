@@ -223,7 +223,7 @@ const FaqPage = () => {
 
           {filteredCategories.length === 0 && (
             <div className="text-center py-16">
-              <Search className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
+              <Search className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">Nenhuma pergunta encontrada para "{searchQuery}"</p>
             </div>
           )}
