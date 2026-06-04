@@ -16,7 +16,7 @@ export const Header = () => {
         {/* Search Bar */}
         <div className="flex-1 max-w-[400px]">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
             <Input
               type="text"
               placeholder="Pesquisar uma fonte..."
@@ -35,16 +35,16 @@ export const Header = () => {
           
           {/* Social Icons */}
           <div className="flex items-center gap-3">
-            <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               <Facebook className="w-5 h-5" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               <Twitter className="w-5 h-5" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               <Youtube className="w-5 h-5" />
             </a>
           </div>
