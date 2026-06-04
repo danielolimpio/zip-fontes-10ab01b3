@@ -1,0 +1,22 @@
+# Zip Fontes
+
+> Catálogo gratuito de fontes, ícones, emojis, cores e estilos de texto para Instagram, totalmente em português (pt-BR).
+
+Zip Fontes é uma plataforma brasileira que reúne fontes Google gratuitas, ícones da biblioteca Lucide, emojis Twemoji, paletas de cores Material Design e geradores de texto estilizado para redes sociais. Todo o conteúdo é royalty-free e pode ser baixado ou copiado sem restrições de uso.
+
+## Pages
+
+- [Fontes](/): Catálogo de fontes gratuitas para download com preview ao vivo.
+- [Ícones](/icons): Biblioteca de ícones SVG/PNG personalizáveis até 1024px.
+- [Emojis](/emojis): Catálogo de emojis Twemoji com nomes e categorias.
+- [Insta Fonts](/insta-fonts): Gerador de texto estilizado (cursivo, negrito, decorativo) para Instagram, Twitter e TikTok.
+- [Cores](/colors): Paletas de cores Material Design com cópia de código hex.
+- [FAQ](/faq): Perguntas frequentes sobre o uso da plataforma.
+- [Ajuda](/ajuda): Guia de uso e suporte.
+- [Contato](/contato): Canais de contato.
+
+## Optional
+
+- [Termos de Uso](/termos): Termos de uso da plataforma.
+- [Política de Privacidade](/privacidade): Política de privacidade.
+- [Política de Cookies](/cookies): Política de cookies.
