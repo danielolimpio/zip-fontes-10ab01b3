@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://zip-fontes.lovable.app/sitemap.xml
+Sitemap: https://zipfontes.com.br/sitemap.xml

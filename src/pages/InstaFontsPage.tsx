@@ -68,12 +68,12 @@ const InstaFontsPage = () => {
       <Helmet>
         <title>Insta Fonts - Zip Fontes</title>
         <meta name="description" content="Transforme seu texto em estilos decorativos para Instagram, Twitter e TikTok. Cursivo, negrito, duplo e muito mais." />
-        <link rel="canonical" href="https://zip-fontes.lovable.app/insta-fonts" />
+        <link rel="canonical" href="https://zipfontes.com.br/insta-fonts" />
         <meta property="og:title" content="Insta Fonts - Zip Fontes" />
         <meta property="og:description" content="Transforme seu texto em estilos decorativos para Instagram, Twitter e TikTok. Cursivo, negrito, duplo e muito mais." />
-        <meta property="og:url" content="https://zip-fontes.lovable.app/insta-fonts" />
+        <meta property="og:url" content="https://zipfontes.com.br/insta-fonts" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
+        <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
       </Helmet>
       <AppLayout activeItem="Insta">
       {/* Config Panel - largura padronizada */}

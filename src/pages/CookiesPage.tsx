@@ -52,12 +52,12 @@ const CookiesPage = () => {
       <Helmet>
         <title>Cookies - Zip Fontes</title>
         <meta name="description" content="Política de cookies do Zip Fontes. Saiba quais cookies usamos e como gerenciar suas preferências." />
-        <link rel="canonical" href="https://zip-fontes.lovable.app/cookies" />
+        <link rel="canonical" href="https://zipfontes.com.br/cookies" />
         <meta property="og:title" content="Cookies - Zip Fontes" />
         <meta property="og:description" content="Política de cookies do Zip Fontes. Saiba quais cookies usamos e como gerenciar suas preferências." />
-        <meta property="og:url" content="https://zip-fontes.lovable.app/cookies" />
+        <meta property="og:url" content="https://zipfontes.com.br/cookies" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://zip-fontes.lovable.app/favicon.png" />
+        <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
       </Helmet>
       <AppLayout>
       <div className="flex-1 flex flex-col min-h-screen">
