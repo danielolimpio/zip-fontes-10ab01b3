@@ -25,17 +25,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === "development" && componentTagger(),
-    {
-      name: "zipfontes-prerender-routes",
-      apply: "build",
-      closeBundle() {
-        try {
-          prerenderRoutes("dist");
-        } catch (e) {
-          console.error("[prerender] falhou:", e);
-        }
-      },
-    },
+    prerenderPlugin,
   ].filter(Boolean),
   resolve: {
     alias: {
