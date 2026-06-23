@@ -14,6 +14,7 @@ const NotFound = () => {
       <Helmet>
         <title>Página não encontrada - Zip Fontes</title>
         <meta name="description" content="A página que você procura não foi encontrada. Volte para a página inicial do Zip Fontes." />
+        <meta name="robots" content="noindex, follow" />
         <link rel="canonical" href="https://zipfontes.com.br/" />
         <meta property="og:title" content="Página não encontrada - Zip Fontes" />
         <meta property="og:description" content="A página que você procura não foi encontrada. Volte para a página inicial do Zip Fontes." />

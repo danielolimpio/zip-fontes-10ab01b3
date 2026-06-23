@@ -16,8 +16,8 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-  # URLs antigas /font/<nome> agora apontam para /fontes/<termo>
-  RewriteRule ^font/(.+)$ https://zipfontes.com.br/fontes/$1 [R=301,L]
+  # URLs antigas /font/<arquivo> eram páginas órfãs; consolida no catálogo.
+  RewriteRule ^font/(.+)$ https://zipfontes.com.br/ [R=301,L]
 
   # Pré-renderizado por rota: se /<rota>/index.html existir, serve-o
   # Funciona para rotas simples (/icons) e aninhadas (/fontes/fontes-gratis).
