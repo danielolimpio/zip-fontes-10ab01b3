@@ -15,6 +15,7 @@ import CookiesPage from "./pages/CookiesPage";
 import TermosPage from "./pages/TermosPage";
 import AjudaPage from "./pages/AjudaPage";
 import NotFound from "./pages/NotFound";
+import SeoLandingPage from "./pages/SeoLandingPage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,8 @@ const App = () => (
           <Route path="/cookies" element={<CookiesPage />} />
           <Route path="/termos" element={<TermosPage />} />
           <Route path="/ajuda" element={<AjudaPage />} />
+          <Route path="/fontes/:slug" element={<SeoLandingPage />} />
+          <Route path="/font/:slug" element={<SeoLandingPage legacyFontPath />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
