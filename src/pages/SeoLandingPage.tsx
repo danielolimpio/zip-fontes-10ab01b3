@@ -20,13 +20,13 @@ const SeoLandingPage = ({ legacyFontPath = false }: SeoLandingPageProps) => {
   const { slug = "" } = useParams();
   const [searchQuery, setSearchQuery] = useState("");
   const canonicalSlug = slugifyKeyword(slug || "fontes-gratis");
+  const path = `/fontes/${canonicalSlug}`;
+  const related = useMemo(() => relatedSeoRoutes(path, 12), [path]);
 
   if (legacyFontPath) return <Navigate to={`/fontes/${canonicalSlug}`} replace />;
 
-  const path = `/fontes/${canonicalSlug}`;
   const page = findSeoRoute(path);
   const fallbackTitle = labelFromSlug(canonicalSlug);
-  const related = useMemo(() => relatedSeoRoutes(path, 12), [path]);
   const meta = page ?? {
     path,
     title: `${fallbackTitle} — Fontes Grátis para Download`,
