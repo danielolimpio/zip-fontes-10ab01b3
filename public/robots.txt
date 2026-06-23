@@ -12,5 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /*?q=
+Disallow: /*search_term_string
 
 Sitemap: https://zipfontes.com.br/sitemap.xml

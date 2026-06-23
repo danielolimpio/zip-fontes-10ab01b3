@@ -17,7 +17,7 @@ function buildHead(route: RouteMeta) {
   const keywords = escapeHtml(route.keywords.join(", "));
   const schemas = [
     { "@context": "https://schema.org", "@type": "Organization", name: SITE_NAME, url: BASE_URL, logo: OG_IMAGE, sameAs: ["https://www.instagram.com/zipfontes"] },
-    { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: BASE_URL, inLanguage: "pt-BR", potentialAction: { "@type": "SearchAction", target: `${BASE_URL}/?q={search_term_string}`, "query-input": "required name=search_term_string" } },
+    { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: BASE_URL, inLanguage: "pt-BR" },
     { "@context": "https://schema.org", "@type": "WebPage", name: route.title, description: route.description, url, inLanguage: "pt-BR", isPartOf: { "@type": "WebSite", name: SITE_NAME, url: BASE_URL } },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Início", item: `${BASE_URL}/` }, ...(route.path === "/" ? [] : [{ "@type": "ListItem", position: 2, name: route.h1, item: url }])] },
     ...(route.jsonLdExtra ?? []),

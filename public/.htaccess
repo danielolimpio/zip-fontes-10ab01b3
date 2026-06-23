@@ -16,10 +16,14 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
+  # URLs antigas /font/<nome> agora apontam para /fontes/<termo>
+  RewriteRule ^font/(.+)$ https://zipfontes.com.br/fontes/$1 [R=301,L]
+
   # Pré-renderizado por rota: se /<rota>/index.html existir, serve-o
+  # Funciona para rotas simples (/icons) e aninhadas (/fontes/fontes-gratis).
   # (mantém meta tags específicas por página para SEO / crawlers).
   RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
-  RewriteRule ^([^/]+)/?$ /$1/index.html [L]
+  RewriteRule ^(.+?)/?$ /$1/index.html [L]
 
   # SPA fallback: se não for arquivo nem diretório, serve index.html raiz
   RewriteCond %{REQUEST_FILENAME} !-f
