@@ -1,14 +1,22 @@
 User-agent: Googlebot
 Allow: /
+Disallow: /*?q=
+Disallow: /*search_term_string
 
 User-agent: Bingbot
 Allow: /
+Disallow: /*?q=
+Disallow: /*search_term_string
 
 User-agent: Twitterbot
 Allow: /
+Disallow: /*?q=
+Disallow: /*search_term_string
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /*?q=
+Disallow: /*search_term_string
 
 User-agent: *
 Allow: /

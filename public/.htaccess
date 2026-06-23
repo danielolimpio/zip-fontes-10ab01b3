@@ -16,6 +16,10 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
+  # Remove URL gerada por template antigo de SearchAction do Google.
+  RewriteCond %{QUERY_STRING} (^|&)q=\{search_term_string\}(&|$) [NC]
+  RewriteRule ^$ https://zipfontes.com.br/? [R=301,L]
+
   # URLs antigas /font/<arquivo> eram páginas órfãs; consolida no catálogo.
   RewriteRule ^font/(.+)$ https://zipfontes.com.br/ [R=301,L]
 
