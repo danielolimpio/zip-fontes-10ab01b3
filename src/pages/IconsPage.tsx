@@ -274,6 +274,15 @@ const IconsPage = () => {
         <meta property="og:url" content="https://zipfontes.com.br/icons" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Ícones - Zip Fontes",
+          description: "Biblioteca com mais de 1.500 ícones vetoriais gratuitos da coleção Lucide.",
+          url: "https://zipfontes.com.br/icons",
+          inLanguage: "pt-BR",
+          isPartOf: { "@type": "WebSite", name: "Zip Fontes", url: "https://zipfontes.com.br/" }
+        })}</script>
       </Helmet>
       <AppLayout activeItem="Icons">
       {/* Filter Panel - largura padronizada */}
