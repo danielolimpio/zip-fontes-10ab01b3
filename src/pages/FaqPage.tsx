@@ -152,6 +152,18 @@ const FaqPage = () => {
 
   const totalQuestions = faqCategories.reduce((acc, cat) => acc + cat.questions.length, 0);
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqCategories.flatMap(cat =>
+      cat.questions.map(q => ({
+        "@type": "Question",
+        name: q.q,
+        acceptedAnswer: { "@type": "Answer", text: q.a },
+      }))
+    ),
+  };
+
   return (
     <>
       <Helmet>
@@ -163,6 +175,7 @@ const FaqPage = () => {
         <meta property="og:url" content="https://zipfontes.com.br/faq" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <AppLayout activeItem="FAQ">
       <div className="flex-1 flex flex-col min-h-screen">
