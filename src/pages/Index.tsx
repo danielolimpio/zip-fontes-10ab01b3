@@ -96,6 +96,15 @@ const Index = () => {
         <meta property="og:url" content="https://zipfontes.com.br/" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://zipfontes.com.br/favicon.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Zip Fontes - Catálogo de Fontes Gratuitas",
+          description: "Catálogo com milhares de fontes gratuitas em TTF e OTF, 100% livres de direitos autorais.",
+          url: "https://zipfontes.com.br/",
+          inLanguage: "pt-BR",
+          isPartOf: { "@type": "WebSite", name: "Zip Fontes", url: "https://zipfontes.com.br/" }
+        })}</script>
       </Helmet>
       <AppLayout activeItem="Fonts">
       {showFilters && (
