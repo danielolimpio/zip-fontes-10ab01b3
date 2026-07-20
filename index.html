@@ -10,6 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
 
+    <style>
+      /* Evita FOUC: esconde o HTML pré-renderizado (SEO) até o React hidratar.
+         Permanece no DOM para crawlers, invisível para usuários. */
+      html,body{margin:0;background:#ffffff;}
+      #seo-prerender{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
+    </style>
+
+
     <title>Zip Fontes — Baixar Fontes Grátis para Download (TTF, OTF) em Português</title>
     <meta name="description" content="Catálogo com milhares de fontes gratuitas para baixar em TTF e OTF. 100% livres de direitos autorais, preview em tempo real, ideais para Photoshop, Canva, Word, Illustrator, design gráfico, logotipos, convites, redes sociais e Instagram." />
     <meta name="keywords" content="zip fontes, fontes grátis, fontes gratuitas, download de fontes, baixar fontes, fontes ttf, fontes otf, fontes para instagram, fontes para canva, fontes para photoshop, fontes para logotipo, fontes cursivas, fontes manuscritas, fontes elegantes, fontes para tatuagem, fontes para convites, ícones grátis, emojis copiar e colar, paletas de cores material design, google fonts português" />
